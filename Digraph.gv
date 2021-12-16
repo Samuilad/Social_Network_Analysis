@@ -1,0 +1,21 @@
+digraph {
+	"Alyssa Bradshaw" [label="Alyssa Bradshaw"]
+	"Samuil Donchev" [label="Samuil Donchev"]
+	"Maya Grant" [label="Maya Grant"]
+	"Cornell Horne" [label="Cornell Horne"]
+	"Jorge Jimenez" [label="Jorge Jimenez"]
+	"Jacob Lozano" [label="Jacob Lozano"]
+	"Raefa Malik" [label="Raefa Malik"]
+	"David Medina" [label="David Medina"]
+	"Linda Nguessan" [label="Linda Nguessan"]
+	"Charmaine Nieves" [label="Charmaine Nieves"]
+	"Omolola Okesanjo" [label="Omolola Okesanjo"]
+	"Diana Pham" [label="Diana Pham"]
+	"Adia Radecka" [label="Adia Radecka"]
+	"Joshua Sekyere" [label="Joshua Sekyere"]
+	"Ayoub Ellouzi" [label="Ayoub Ellouzi"]
+	"Trang Nguyen" [label="Trang Nguyen"]
+	"Professor Siggelkoe" [label="Professor Siggelkoe"]
+	"Dr. Golecki" [label="Dr. Golecki"]
+	"Alyssa Bradshaw" -> "Alyssa Bradshaw"
+}

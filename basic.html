@@ -1,0 +1,123 @@
+<html>
+<head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis.css" type="text/css" />
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis-network.min.js"> </script>
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+
+<style type="text/css">
+
+        #mynetwork {
+            width: 500px;
+            height: 500px;
+            background-color: #ffffff;
+            border: 1px solid lightgray;
+            position: relative;
+            float: left;
+        }
+
+        
+
+        
+        #config {
+            float: left;
+            width: 400px;
+            height: 600px;
+        }
+        
+
+        
+</style>
+
+</head>
+
+<body>
+<div id = "mynetwork"></div>
+
+
+<div id = "config"></div>
+
+<script type="text/javascript">
+
+    // initialize global variables.
+    var edges;
+    var nodes;
+    var network; 
+    var container;
+    var options, data;
+
+    
+    // This method is responsible for drawing the graph, returns the drawn network
+    function drawGraph() {
+        var container = document.getElementById('mynetwork');
+        
+        
+
+        // parsing and collecting nodes and edges from the python
+        nodes = new vis.DataSet([{"id": "Alyssa Bradshaw", "label": "Alyssa Bradshaw", "shape": "dot"}, {"id": "Samuil Donchev", "label": "Samuil Donchev", "shape": "dot"}, {"id": "Maya Grant", "label": "Maya Grant", "shape": "dot"}, {"id": "Cornell Horne", "label": "Cornell Horne", "shape": "dot"}, {"id": "Jorge Jimenez", "label": "Jorge Jimenez", "shape": "dot"}, {"id": "Jacob Lozano", "label": "Jacob Lozano", "shape": "dot"}, {"id": "Raefa Malik", "label": "Raefa Malik", "shape": "dot"}, {"id": "David Medina", "label": "David Medina", "shape": "dot"}, {"id": "Linda Nguessan", "label": "Linda Nguessan", "shape": "dot"}, {"id": "Charmaine Nieves", "label": "Charmaine Nieves", "shape": "dot"}, {"id": "Omolola Okesanjo", "label": "Omolola Okesanjo", "shape": "dot"}, {"id": "Diana Pham", "label": "Diana Pham", "shape": "dot"}, {"id": "Adia Radecka", "label": "Adia Radecka", "shape": "dot"}, {"id": "Joshua Sekyere", "label": "Joshua Sekyere", "shape": "dot"}, {"id": "Ilalee Harrison", "label": "Ilalee Harrison", "shape": "dot"}, {"id": "Ayoub Ellouzi", "label": "Ayoub Ellouzi", "shape": "dot"}, {"id": "Trang Nguyen", "label": "Trang Nguyen", "shape": "dot"}, {"id": "Dr. Golecki", "label": "Dr. Golecki", "shape": "dot"}, {"id": "Professor Siggelkoe", "label": "Professor Siggelkoe", "shape": "dot"}]);
+        edges = new vis.DataSet([{"arrows": "to", "color": "blue", "from": "Dr. Golecki", "title": "McKibbens Muscle", "to": "Alyssa Bradshaw"}, {"arrows": "to", "color": "blue", "from": "Dr. Golecki", "title": "McKibbens Muscle", "to": "Maya Grant"}, {"arrows": "to", "color": "blue", "from": "Dr. Golecki", "title": "McKibbens Muscle", "to": "Cornell Horne"}, {"arrows": "to", "color": "blue", "from": "Dr. Golecki", "title": "McKibbens Muscle", "to": "Jorge Jimenez"}, {"arrows": "to", "color": "blue", "from": "Dr. Golecki", "title": "McKibbens Muscle", "to": "Jacob Lozano"}, {"arrows": "to", "color": "blue", "from": "Dr. Golecki", "title": "McKibbens Muscle", "to": "Raefa Malik"}, {"arrows": "to", "color": "blue", "from": "Dr. Golecki", "title": "McKibbens Muscle", "to": "David Medina"}, {"arrows": "to", "color": "blue", "from": "Dr. Golecki", "title": "McKibbens Muscle", "to": "Linda Nguessan"}, {"arrows": "to", "color": "blue", "from": "Dr. Golecki", "title": "McKibbens Muscle", "to": "Charmaine Nieves"}, {"arrows": "to", "color": "blue", "from": "Dr. Golecki", "title": "McKibbens Muscle", "to": "Omolola Okesanjo"}, {"arrows": "to", "color": "blue", "from": "Samuil Donchev", "title": "McKibbens Muscle", "to": "Diana Pham"}, {"arrows": "to", "color": "blue", "from": "Dr. Golecki", "title": "McKibbens Muscle", "to": "Adia Radecka"}, {"arrows": "to", "color": "blue", "from": "Omolola Okesanjo", "title": "McKibbens Muscle", "to": "Joshua Sekyere"}, {"arrows": "to", "color": "blue", "from": "Professor Siggelkoe", "title": "McKibbens Muscle", "to": "Ayoub Ellouzi"}, {"arrows": "to", "color": "blue", "from": "Professor Siggelkoe", "title": "McKibbens Muscle", "to": "Trang Nguyen"}, {"arrows": "to", "color": "black", "from": "Dr. Golecki", "title": "Heat Sealable Fabric Brace or Folding Box", "to": "Alyssa Bradshaw"}, {"arrows": "to", "color": "black", "from": "Joshua Sekyere", "title": "Heat Sealable Fabric Brace or Folding Box", "to": "Maya Grant"}, {"arrows": "to", "color": "black", "from": "Dr. Golecki", "title": "Heat Sealable Fabric Brace or Folding Box", "to": "Cornell Horne"}, {"arrows": "to", "color": "black", "from": "Diana Pham", "title": "Heat Sealable Fabric Brace or Folding Box", "to": "Jorge Jimenez"}, {"arrows": "to", "color": "black", "from": "Charmaine Nieves", "title": "Heat Sealable Fabric Brace or Folding Box", "to": "Jacob Lozano"}, {"arrows": "to", "color": "black", "from": "Diana Pham", "title": "Heat Sealable Fabric Brace or Folding Box", "to": "David Medina"}, {"arrows": "to", "color": "black", "from": "Diana Pham", "title": "Heat Sealable Fabric Brace or Folding Box", "to": "Charmaine Nieves"}, {"arrows": "to", "color": "black", "from": "Joshua Sekyere", "title": "Heat Sealable Fabric Brace or Folding Box", "to": "Omolola Okesanjo"}, {"arrows": "to", "color": "black", "from": "Dr. Golecki", "title": "Heat Sealable Fabric Brace or Folding Box", "to": "Diana Pham"}, {"arrows": "to", "color": "black", "from": "Dr. Golecki", "title": "Heat Sealable Fabric Brace or Folding Box", "to": "Adia Radecka"}, {"arrows": "to", "color": "black", "from": "Dr. Golecki", "title": "Heat Sealable Fabric Brace or Folding Box", "to": "Joshua Sekyere"}, {"arrows": "to", "color": "black", "from": "Professor Siggelkoe", "title": "Heat Sealable Fabric Brace or Folding Box", "to": "Ayoub Ellouzi"}, {"arrows": "to", "color": "black", "from": "Professor Siggelkoe", "title": "Heat Sealable Fabric Brace or Folding Box", "to": "Trang Nguyen"}, {"arrows": "to", "color": "green", "from": "Adia Radecka", "title": "SDM Finger", "to": "Alyssa Bradshaw"}, {"arrows": "to", "color": "green", "from": "Alyssa Bradshaw", "title": "SDM Finger", "to": "Samuil Donchev"}, {"arrows": "to", "color": "green", "from": "Alyssa Bradshaw", "title": "SDM Finger", "to": "Maya Grant"}, {"arrows": "to", "color": "green", "from": "Alyssa Bradshaw", "title": "SDM Finger", "to": "Cornell Horne"}, {"arrows": "to", "color": "green", "from": "Alyssa Bradshaw", "title": "SDM Finger", "to": "Jorge Jimenez"}, {"arrows": "to", "color": "green", "from": "Adia Radecka", "title": "SDM Finger", "to": "Jorge Jimenez"}, {"arrows": "to", "color": "green", "from": "Alyssa Bradshaw", "title": "SDM Finger", "to": "Jacob Lozano"}, {"arrows": "to", "color": "green", "from": "Adia Radecka", "title": "SDM Finger", "to": "Jacob Lozano"}, {"arrows": "to", "color": "green", "from": "Alyssa Bradshaw", "title": "SDM Finger", "to": "Raefa Malik"}, {"arrows": "to", "color": "green", "from": "Adia Radecka", "title": "SDM Finger", "to": "Raefa Malik"}, {"arrows": "to", "color": "green", "from": "Alyssa Bradshaw", "title": "SDM Finger", "to": "David Medina"}, {"arrows": "to", "color": "green", "from": "Adia Radecka", "title": "SDM Finger", "to": "David Medina"}, {"arrows": "to", "color": "green", "from": "Alyssa Bradshaw", "title": "SDM Finger", "to": "Linda Nguessan"}, {"arrows": "to", "color": "green", "from": "Adia Radecka", "title": "SDM Finger", "to": "Linda Nguessan"}, {"arrows": "to", "color": "green", "from": "Alyssa Bradshaw", "title": "SDM Finger", "to": "Charmaine Nieves"}, {"arrows": "to", "color": "green", "from": "Adia Radecka", "title": "SDM Finger", "to": "Charmaine Nieves"}, {"arrows": "to", "color": "green", "from": "Alyssa Bradshaw", "title": "SDM Finger", "to": "Omolola Okesanjo"}, {"arrows": "to", "color": "green", "from": "Adia Radecka", "title": "SDM Finger", "to": "Omolola Okesanjo"}, {"arrows": "to", "color": "green", "from": "Alyssa Bradshaw", "title": "SDM Finger", "to": "Diana Pham"}, {"arrows": "to", "color": "green", "from": "Adia Radecka", "title": "SDM Finger", "to": "Diana Pham"}, {"arrows": "to", "color": "green", "from": "Dr. Golecki", "title": "SDM Finger", "to": "Adia Radecka"}, {"arrows": "to", "color": "green", "from": "Alyssa Bradshaw", "title": "SDM Finger", "to": "Joshua Sekyere"}, {"arrows": "to", "color": "green", "from": "Adia Radecka", "title": "SDM Finger", "to": "Joshua Sekyere"}, {"arrows": "to", "color": "green", "from": "Samuil Donchev", "title": "SDM Finger", "to": "Ayoub Ellouzi"}, {"arrows": "to", "color": "green", "from": "Trang Nguyen", "title": "SDM Finger", "to": "Ayoub Ellouzi"}, {"arrows": "to", "color": "green", "from": "Samuil Donchev", "title": "SDM Finger", "to": "Trang Nguyen"}, {"arrows": "to", "color": "green", "from": "Trang Nguyen", "title": "SDM Finger", "to": "Trang Nguyen"}, {"arrows": "to", "color": "red", "from": "Alyssa Bradshaw", "title": "Motorized SDM Finger", "to": "Alyssa Bradshaw"}, {"arrows": "to", "color": "red", "from": "Alyssa Bradshaw", "title": "Motorized SDM Finger", "to": "Samuil Donchev"}, {"arrows": "to", "color": "red", "from": "Adia Radecka", "title": "Motorized SDM Finger", "to": "Samuil Donchev"}, {"arrows": "to", "color": "red", "from": "Adia Radecka", "title": "Motorized SDM Finger", "to": "Jacob Lozano"}, {"arrows": "to", "color": "red", "from": "Alyssa Bradshaw", "title": "Motorized SDM Finger", "to": "Jacob Lozano"}, {"arrows": "to", "color": "red", "from": "Adia Radecka", "title": "Motorized SDM Finger", "to": "Adia Radecka"}, {"arrows": "to", "color": "red", "from": "Professor Siggelkoe", "title": "Motorized SDM Finger", "to": "Ayoub Ellouzi"}, {"arrows": "to", "color": "red", "from": "Professor Siggelkoe", "title": "Motorized SDM Finger", "to": "Trang Nguyen"}, {"arrows": "to", "color": "purple", "from": "Dr. Golecki", "title": "SIA Actuator", "to": "Alyssa Bradshaw"}, {"arrows": "to", "color": "purple", "from": "Alyssa Bradshaw", "title": "SIA Actuator", "to": "Samuil Donchev"}, {"arrows": "to", "color": "purple", "from": "David Medina", "title": "SIA Actuator", "to": "Cornell Horne"}, {"arrows": "to", "color": "purple", "from": "Alyssa Bradshaw", "title": "SIA Actuator", "to": "Jorge Jimenez"}, {"arrows": "to", "color": "purple", "from": "Adia Radecka", "title": "SIA Actuator", "to": "Jorge Jimenez"}, {"arrows": "to", "color": "purple", "from": "Alyssa Bradshaw", "title": "SIA Actuator", "to": "Jacob Lozano"}, {"arrows": "to", "color": "purple", "from": "Adia Radecka", "title": "SIA Actuator", "to": "Jacob Lozano"}, {"arrows": "to", "color": "purple", "from": "Adia Radecka", "title": "SIA Actuator", "to": "David Medina"}, {"arrows": "to", "color": "purple", "from": "Alyssa Bradshaw", "title": "SIA Actuator", "to": "David Medina"}, {"arrows": "to", "color": "purple", "from": "Adia Radecka", "title": "SIA Actuator", "to": "Charmaine Nieves"}, {"arrows": "to", "color": "purple", "from": "Alyssa Bradshaw", "title": "SIA Actuator", "to": "Charmaine Nieves"}, {"arrows": "to", "color": "purple", "from": "Adia Radecka", "title": "SIA Actuator", "to": "Omolola Okesanjo"}, {"arrows": "to", "color": "purple", "from": "Alyssa Bradshaw", "title": "SIA Actuator", "to": "Omolola Okesanjo"}, {"arrows": "to", "color": "purple", "from": "Alyssa Bradshaw", "title": "SIA Actuator", "to": "Diana Pham"}, {"arrows": "to", "color": "purple", "from": "Dr. Golecki", "title": "SIA Actuator", "to": "Adia Radecka"}, {"arrows": "to", "color": "purple", "from": "Adia Radecka", "title": "SIA Actuator", "to": "Joshua Sekyere"}, {"arrows": "to", "color": "purple", "from": "Alyssa Bradshaw", "title": "SIA Actuator", "to": "Joshua Sekyere"}, {"arrows": "to", "color": "purple", "from": "Professor Siggelkoe", "title": "SIA Actuator", "to": "Ayoub Ellouzi"}, {"arrows": "to", "color": "purple", "from": "Professor Siggelkoe", "title": "SIA Actuator", "to": "Trang Nguyen"}, {"arrows": "to", "color": "brown", "from": "Samuil Donchev", "title": "Capacitance Sensor", "to": "Alyssa Bradshaw"}, {"arrows": "to", "color": "brown", "from": "Dr. Golecki", "title": "Capacitance Sensor", "to": "Samuil Donchev"}, {"arrows": "to", "color": "brown", "from": "Dr. Golecki", "title": "Capacitance Sensor", "to": "Jorge Jimenez"}, {"arrows": "to", "color": "brown", "from": "Dr. Golecki", "title": "Capacitance Sensor", "to": "Jacob Lozano"}, {"arrows": "to", "color": "brown", "from": "Dr. Golecki", "title": "Capacitance Sensor", "to": "David Medina"}, {"arrows": "to", "color": "brown", "from": "Dr. Golecki", "title": "Capacitance Sensor", "to": "Charmaine Nieves"}, {"arrows": "to", "color": "brown", "from": "Dr. Golecki", "title": "Capacitance Sensor", "to": "Omolola Okesanjo"}, {"arrows": "to", "color": "brown", "from": "Samuil Donchev", "title": "Capacitance Sensor", "to": "Diana Pham"}, {"arrows": "to", "color": "brown", "from": "Omolola Okesanjo", "title": "Capacitance Sensor", "to": "Joshua Sekyere"}, {"arrows": "to", "color": "Orange", "from": "David Medina", "title": "Flex Sensor", "to": "Samuil Donchev"}, {"arrows": "to", "color": "Orange", "from": "Cornell Horne", "title": "Flex Sensor", "to": "Maya Grant"}, {"arrows": "to", "color": "Orange", "from": "Dr. Golecki", "title": "Flex Sensor", "to": "Cornell Horne"}, {"arrows": "to", "color": "Orange", "from": "David Medina", "title": "Flex Sensor", "to": "Jorge Jimenez"}, {"arrows": "to", "color": "Orange", "from": "Charmaine Nieves", "title": "Flex Sensor", "to": "Jacob Lozano"}, {"arrows": "to", "color": "Orange", "from": "Jacob Lozano", "title": "Flex Sensor", "to": "Jacob Lozano"}, {"arrows": "to", "color": "Orange", "from": "Raefa Malik", "title": "Flex Sensor", "to": "Raefa Malik"}, {"arrows": "to", "color": "Orange", "from": "Dr. Golecki", "title": "Flex Sensor", "to": "David Medina"}, {"arrows": "to", "color": "Orange", "from": "Omolola Okesanjo", "title": "Flex Sensor", "to": "David Medina"}, {"arrows": "to", "color": "Orange", "from": "Dr. Golecki", "title": "Flex Sensor", "to": "Linda Nguessan"}, {"arrows": "to", "color": "Orange", "from": "Dr. Golecki", "title": "Flex Sensor", "to": "Charmaine Nieves"}, {"arrows": "to", "color": "Orange", "from": "Dr. Golecki", "title": "Flex Sensor", "to": "Omolola Okesanjo"}, {"arrows": "to", "color": "Orange", "from": "Diana Pham", "title": "Flex Sensor", "to": "Diana Pham"}, {"arrows": "to", "color": "Orange", "from": "Joshua Sekyere", "title": "Flex Sensor", "to": "Joshua Sekyere"}, {"arrows": "to", "color": "Orange", "from": "Professor Siggelkoe", "title": "Flex Sensor", "to": "Ayoub Ellouzi"}, {"arrows": "to", "color": "Orange", "from": "Professor Siggelkoe", "title": "Flex Sensor", "to": "Trang Nguyen"}, {"arrows": "to", "color": "pink", "from": "Jorge Jimenez", "title": "Textile Bending Actuator", "to": "Samuil Donchev"}, {"arrows": "to", "color": "pink", "from": "Jacob Lozano", "title": "Textile Bending Actuator", "to": "Cornell Horne"}, {"arrows": "to", "color": "pink", "from": "David Medina", "title": "Textile Bending Actuator", "to": "Cornell Horne"}, {"arrows": "to", "color": "pink", "from": "Cornell Horne", "title": "Textile Bending Actuator", "to": "Cornell Horne"}, {"arrows": "to", "color": "pink", "from": "Jacob Lozano", "title": "Textile Bending Actuator", "to": "Jorge Jimenez"}, {"arrows": "to", "color": "pink", "from": "David Medina", "title": "Textile Bending Actuator", "to": "Jorge Jimenez"}, {"arrows": "to", "color": "pink", "from": "Jorge Jimenez", "title": "Textile Bending Actuator", "to": "Jorge Jimenez"}, {"arrows": "to", "color": "pink", "from": "Jacob Lozano", "title": "Textile Bending Actuator", "to": "Jacob Lozano"}, {"arrows": "to", "color": "pink", "from": "David Medina", "title": "Textile Bending Actuator", "to": "David Medina"}, {"arrows": "to", "color": "pink", "from": "Jacob Lozano", "title": "Textile Bending Actuator", "to": "David Medina"}, {"arrows": "to", "color": "pink", "from": "Jacob Lozano", "title": "Textile Bending Actuator", "to": "Charmaine Nieves"}, {"arrows": "to", "color": "pink", "from": "Charmaine Nieves", "title": "Textile Bending Actuator", "to": "Charmaine Nieves"}, {"arrows": "to", "color": "pink", "from": "Jacob Lozano", "title": "Textile Bending Actuator", "to": "Omolola Okesanjo"}, {"arrows": "to", "color": "pink", "from": "Omolola Okesanjo", "title": "Textile Bending Actuator", "to": "Omolola Okesanjo"}, {"arrows": "to", "color": "pink", "from": "Diana Pham", "title": "Textile Bending Actuator", "to": "Diana Pham"}, {"arrows": "to", "color": "pink", "from": "David Medina", "title": "Textile Bending Actuator", "to": "Diana Pham"}]);
+
+        // adding nodes and edges to the graph
+        data = {nodes: nodes, edges: edges};
+
+        var options = {
+    "configure": {
+        "enabled": true,
+        "filter": [
+            "physics"
+        ]
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": false,
+            "type": "continuous"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": false,
+        "hideNodesOnDrag": false
+    },
+    "physics": {
+        "enabled": true,
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+        
+        
+
+        
+        // if this network requires displaying the configure window,
+        // put it in its div
+        options.configure["container"] = document.getElementById("config");
+        
+
+        network = new vis.Network(container, data, options);
+	 
+        
+
+
+        
+
+        return network;
+
+    }
+
+    drawGraph();
+
+</script>
+</body>
+</html>
