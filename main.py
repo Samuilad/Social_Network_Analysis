@@ -3,11 +3,11 @@ from Node import Node
 from Edge import Edge
 
 # people/resources involved
-nodes = [Node('Alyssa Bradshaw'), Node('Samuil Donchev'), Node('Maya Grant'), Node('Cornell Horne'),
+nodes = [Node('SRT'), Node('Alyssa Bradshaw'), Node('Samuil Donchev'), Node('Maya Grant'), Node('Cornell Horne'),
          Node('Jorge Jimenez'), Node('Jacob Lozano'), Node('Raefa Malik'), Node('David Medina'),
          Node('Linda Nguessan'), Node('Charmaine Nieves'), Node('Omolola Okesanjo'), Node('Diana Pham'),
          Node('Adia Radecka'), Node('Joshua Sekyere'), Node('Ilalee Harrison'), Node('Ayoub Ellouzi'),
-         Node('Trang Nguyen'), Node('Dr. Golecki'), Node('Professor Siggelkoe'), Node('SRT')]
+         Node('Trang Nguyen'), Node('Dr. Golecki'), Node('Professor Siggelkoe')]
 
 # Displays the connection between teacher and student
 edges = [

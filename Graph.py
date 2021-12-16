@@ -13,9 +13,15 @@ class Graph:
         self.edges = edges_list
 
     def show_graph(self):
+
+        for edge in self.edges:
+            for node in self.nodes:
+                if (node.data == edge.start):
+                    node.out_going_edges_count += 1
+
         # adds each node to graph
         for node in self.nodes:
-            self.net.add_node(node.data)
+            self.net.add_node(node.data, value = 5  * (1 + (node.out_going_edges_count / len(self.edges))))
 
         # adds each edge to graph
         for edge in self.edges:
