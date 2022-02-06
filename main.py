@@ -221,11 +221,13 @@ class Graph:
     type = ''
     adjacencyMatrix = 0
     indexToNameDict = {}
+    activity = ''
 
-    def __init__(self, nodes_list, edges_list, graph_type):
+    def __init__(self, nodes_list, edges_list, graph_type, activity = None):
         self.nodes = nodes_list
         self.edges = edges_list
         self.type = graph_type
+        self.activity = activity
 
         if self.type == 'weighted':
             self.adjacencyMatrix = np.zeros((len(nodes), len(nodes)))
@@ -266,12 +268,14 @@ class Graph:
                 self.adjacencyMatrix[self.indexToNameDict[edge.start]][self.indexToNameDict[edge.end]] += 1
 
             for edge in self.edges:
-                self.net.add_edge(edge.start, edge.end, title=edge.title, color='black', smooth=True, smoothtype='dynamic',
-                                  width=1 + 2 * self.adjacencyMatrix[self.indexToNameDict[edge.start]][self.indexToNameDict[edge.end]])
+                if edge.title == self.activity or not self.activity:
+                    self.net.add_edge(edge.start, edge.end, title=edge.title, color='black', smooth=True, smoothtype='dynamic',
+                                    width=1 + 2 * self.adjacencyMatrix[self.indexToNameDict[edge.start]][self.indexToNameDict[edge.end]])
 
         elif self.type == 'normal':
             for edge in self.edges:
-                self.net.add_edge(edge.start, edge.end, title=edge.title, color=edge.color, smooth=True, smoothtype='dynamic')
+                if edge.title == self.activity or not self.activity:
+                    self.net.add_edge(edge.start, edge.end, title=edge.title, color=edge.color, smooth=True, smoothtype='dynamic')
 
     #Dispays the graph
     def show_graph(self):
@@ -296,11 +300,9 @@ class Graph:
 
         # displays the graph
         self.net.show('basic.html')
-        print(self.indexToNameDict['UIUC MENTOR 1'])
-        print(self.adjacencyMatrix)
 
 
 
-graph = Graph(nodes, edges1, 'weighted')
+graph = Graph(nodes, edges1, 'normal', 'SDM Finger')
 
 graph.show_graph()
