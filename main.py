@@ -1,4 +1,6 @@
 from pyvis.network import Network
+import numpy as np
+
 import json
 
 class Node:
@@ -21,188 +23,193 @@ class Edge:
         self.color = color
 
 # people/resources involved
-nodes = [Node('SRT MNT'), Node('Alyssa Bradshaw UIUC'), Node('Samuil Donchev UIUC'), Node('Maya Grant UIUC'), Node('Cornell Horne UIUC'),
-         Node('Jorge Jimenez UIUC'), Node('Jacob Lozano UIUC'), Node('Raefa Malik UIUC'), Node('David Medina UIUC'),
-         Node('Linda Nguessan UIUC'), Node('Charmaine Nieves UIUC'), Node('Omolola Okesanjo UIUC'), Node('Diana Pham UIUC'),
-         Node('Adia Radecka UIUC'), Node('Joshua Sekyere UIUC'), Node('Ilalee Harrison UIUC'), Node('Ayoub Ellouzi BH'),
-         Node('Trang Nguyen BH'), Node('Dr. Golecki UIUC MNT'), Node('Professor Siggelkoe BH MNT'), Node('Jessee Grupper HAR MNT'), Node('Alex Beaudette HAR MNT'), Node('Tazzy Cole HAR MNT')]
+nodes = [Node('SRT MNT'), Node('UIUC STUDENT 1'), Node('UIUC STUDENT 2'), Node('UIUC STUDENT 3'), Node('UIUC STUDENT 4'),
+         Node('UIUC STUDENT 5'), Node('UIUC STUDENT 6'), Node('UIUC STUDENT 7'), Node('UIUC STUDENT 8'),
+         Node('UIUC STUDENT 10'), Node('UIUC STUDENT 11'), Node('UIUC STUDENT 9'), Node('UIUC STUDENT 12'),
+         Node('UIUC STUDENT 13'), Node('UIUC STUDENT 14'), Node('UIUC MENTOR 1'), Node('BH STUDENT 1'),
+         Node('BH STUDENT 2'), Node('UIUC MENTOR 2'), Node('BH MENTOR 1'), Node('HAR MENTOR 1'), Node('HAR MENTOR 2'), Node('HAR MENTOR 3')]
 
 # Displays the connection between teacher and student
 edges1 = [
     # McKibbens
-    Edge('SRT MNT', 'Samuil Donchev UIUC', 'McKibbens Muscle', 'blue'),
-    Edge('Dr. Golecki UIUC MNT', 'Alyssa Bradshaw UIUC', 'McKibbens Muscle', 'blue'),
-    Edge('Dr. Golecki UIUC MNT', 'Maya Grant UIUC', 'McKibbens Muscle', 'blue'),
-    Edge('Dr. Golecki UIUC MNT', 'Cornell Horne UIUC', 'McKibbens Muscle', 'blue'),
-    Edge('Dr. Golecki UIUC MNT', 'Jorge Jimenez UIUC', 'McKibbens Muscle', 'blue'),
-    Edge('Dr. Golecki UIUC MNT', 'Jacob Lozano UIUC', 'McKibbens Muscle', 'blue'),
-    Edge('Dr. Golecki UIUC MNT', 'Raefa Malik UIUC', 'McKibbens Muscle', 'blue'),
-    Edge('Dr. Golecki UIUC MNT', 'David Medina UIUC', 'McKibbens Muscle', 'blue'),
-    Edge('Dr. Golecki UIUC MNT', 'Linda Nguessan UIUC', 'McKibbens Muscle', 'blue'),
-    Edge('Dr. Golecki UIUC MNT', 'Charmaine Nieves UIUC', 'McKibbens Muscle', 'blue'),
-    Edge('Dr. Golecki UIUC MNT', 'Omolola Okesanjo UIUC', 'McKibbens Muscle', 'blue'),
-    Edge('Samuil Donchev UIUC', 'Diana Pham UIUC', 'McKibbens Muscle', 'blue'),
-    Edge('Dr. Golecki UIUC MNT', 'Adia Radecka UIUC', 'McKibbens Muscle', 'blue'),
-    Edge('Omolola Okesanjo UIUC', 'Joshua Sekyere UIUC', 'McKibbens Muscle', 'blue'),
-    Edge('Professor Siggelkoe BH MNT', 'Ayoub Ellouzi BH', 'McKibbens Muscle', 'blue'),
-    Edge('Professor Siggelkoe BH MNT', 'Trang Nguyen BH', 'McKibbens Muscle', 'blue'),
+    Edge('SRT MNT', 'UIUC STUDENT 2', 'McKibbens Muscle', 'blue'),
+    Edge('UIUC MENTOR 2', 'UIUC STUDENT 1', 'McKibbens Muscle', 'blue'),
+    Edge('UIUC MENTOR 2', 'UIUC STUDENT 3', 'McKibbens Muscle', 'blue'),
+    Edge('UIUC MENTOR 2', 'UIUC STUDENT 4', 'McKibbens Muscle', 'blue'),
+    Edge('UIUC MENTOR 2', 'UIUC STUDENT 5', 'McKibbens Muscle', 'blue'),
+    Edge('UIUC MENTOR 2', 'UIUC STUDENT 6', 'McKibbens Muscle', 'blue'),
+    Edge('UIUC MENTOR 2', 'UIUC STUDENT 7', 'McKibbens Muscle', 'blue'),
+    Edge('UIUC MENTOR 2', 'UIUC STUDENT 8', 'McKibbens Muscle', 'blue'),
+    Edge('UIUC MENTOR 2', 'UIUC STUDENT 10', 'McKibbens Muscle', 'blue'),
+    Edge('UIUC MENTOR 2', 'UIUC STUDENT 11', 'McKibbens Muscle', 'blue'),
+    Edge('UIUC MENTOR 2', 'UIUC STUDENT 9', 'McKibbens Muscle', 'blue'),
+    Edge('UIUC STUDENT 2', 'UIUC STUDENT 12', 'McKibbens Muscle', 'blue'),
+    Edge('UIUC MENTOR 2', 'UIUC STUDENT 13', 'McKibbens Muscle', 'blue'),
+    Edge('UIUC STUDENT 9', 'UIUC STUDENT 14', 'McKibbens Muscle', 'blue'),
+    Edge('BH MENTOR 1', 'BH STUDENT 1', 'McKibbens Muscle', 'blue'),
+    Edge('BH MENTOR 1', 'BH STUDENT 2', 'McKibbens Muscle', 'blue'),
 
     # Heat Sealable Fabric Brace or Folding Box
-    Edge('Dr. Golecki UIUC MNT', 'Alyssa Bradshaw UIUC', 'Heat Sealable Fabric Brace or Folding Box', 'black'),
-    Edge('Joshua Sekyere UIUC', 'Maya Grant UIUC', 'Heat Sealable Fabric Brace or Folding Box', 'black'),
-    Edge('Dr. Golecki UIUC MNT', 'Cornell Horne UIUC', 'Heat Sealable Fabric Brace or Folding Box', 'black'),
-    Edge('Diana Pham UIUC', 'Jorge Jimenez UIUC', 'Heat Sealable Fabric Brace or Folding Box', 'black'),
-    Edge('Charmaine Nieves UIUC', 'Jacob Lozano UIUC', 'Heat Sealable Fabric Brace or Folding Box', 'black'),
-    Edge('SRT MNT', 'Jacob Lozano UIUC', 'Heat Sealable Fabric Brace or Folding Box', 'black'),
-    Edge('Diana Pham UIUC', 'David Medina UIUC', 'Heat Sealable Fabric Brace or Folding Box', 'black'),
-    Edge('Diana Pham UIUC', 'Charmaine Nieves UIUC', 'Heat Sealable Fabric Brace or Folding Box', 'black'),
-    Edge('Joshua Sekyere UIUC', 'Omolola Okesanjo UIUC', 'Heat Sealable Fabric Brace or Folding Box', 'black'),
-    Edge('Dr. Golecki UIUC MNT', 'Diana Pham UIUC', 'Heat Sealable Fabric Brace or Folding Box', 'black'),
-    Edge('Dr. Golecki UIUC MNT', 'Adia Radecka UIUC', 'Heat Sealable Fabric Brace or Folding Box', 'black'),
-    Edge('Dr. Golecki UIUC MNT', 'Joshua Sekyere UIUC', 'Heat Sealable Fabric Brace or Folding Box', 'black'),
-    Edge('Professor Siggelkoe BH MNT', 'Ayoub Ellouzi BH', 'Heat Sealable Fabric Brace or Folding Box', 'black'),
-    Edge('Professor Siggelkoe BH MNT', 'Trang Nguyen BH', 'Heat Sealable Fabric Brace or Folding Box', 'black'),
+    Edge('UIUC MENTOR 2', 'UIUC STUDENT 1', 'Heat Sealable Fabric Brace or Folding Box', 'black'),
+    Edge('UIUC STUDENT 14', 'UIUC STUDENT 3', 'Heat Sealable Fabric Brace or Folding Box', 'black'),
+    Edge('UIUC MENTOR 2', 'UIUC STUDENT 4', 'Heat Sealable Fabric Brace or Folding Box', 'black'),
+    Edge('UIUC STUDENT 12', 'UIUC STUDENT 5', 'Heat Sealable Fabric Brace or Folding Box', 'black'),
+    Edge('UIUC STUDENT 11', 'UIUC STUDENT 6', 'Heat Sealable Fabric Brace or Folding Box', 'black'),
+    Edge('SRT MNT', 'UIUC STUDENT 6', 'Heat Sealable Fabric Brace or Folding Box', 'black'),
+    Edge('UIUC STUDENT 12', 'UIUC STUDENT 8', 'Heat Sealable Fabric Brace or Folding Box', 'black'),
+    Edge('UIUC STUDENT 12', 'UIUC STUDENT 11', 'Heat Sealable Fabric Brace or Folding Box', 'black'),
+    Edge('UIUC STUDENT 14', 'UIUC STUDENT 9', 'Heat Sealable Fabric Brace or Folding Box', 'black'),
+    Edge('UIUC MENTOR 2', 'UIUC STUDENT 12', 'Heat Sealable Fabric Brace or Folding Box', 'black'),
+    Edge('UIUC MENTOR 2', 'UIUC STUDENT 13', 'Heat Sealable Fabric Brace or Folding Box', 'black'),
+    Edge('UIUC MENTOR 2', 'UIUC STUDENT 14', 'Heat Sealable Fabric Brace or Folding Box', 'black'),
+    Edge('BH MENTOR 1', 'BH STUDENT 1', 'Heat Sealable Fabric Brace or Folding Box', 'black'),
+    Edge('BH MENTOR 1', 'BH STUDENT 2', 'Heat Sealable Fabric Brace or Folding Box', 'black'),
 
     # SDM Finger
-    Edge('Adia Radecka UIUC', 'Alyssa Bradshaw UIUC', 'SDM Finger', 'green'),
-    Edge('Alyssa Bradshaw UIUC', 'Samuil Donchev UIUC', 'SDM Finger', 'green'),
-    Edge('Alyssa Bradshaw UIUC', 'Maya Grant UIUC', 'SDM Finger', 'green'),
-    Edge('Alyssa Bradshaw UIUC', 'Cornell Horne UIUC', 'SDM Finger', 'green'),
-    Edge('Alyssa Bradshaw UIUC', 'Jorge Jimenez UIUC', 'SDM Finger', 'green'),
-    Edge('Adia Radecka UIUC', 'Jorge Jimenez UIUC', 'SDM Finger', 'green'),
-    Edge('Alyssa Bradshaw UIUC', 'Jacob Lozano UIUC', 'SDM Finger', 'green'),
-    Edge('Adia Radecka UIUC', 'Jacob Lozano UIUC', 'SDM Finger', 'green'),
-    Edge('Alyssa Bradshaw UIUC', 'Raefa Malik UIUC', 'SDM Finger', 'green'),
-    Edge('Adia Radecka UIUC', 'Raefa Malik UIUC', 'SDM Finger', 'green'),
-    Edge('Alyssa Bradshaw UIUC', 'David Medina UIUC', 'SDM Finger', 'green'),
-    Edge('Adia Radecka UIUC', 'David Medina UIUC', 'SDM Finger', 'green'),
-    Edge('Alyssa Bradshaw UIUC', 'Linda Nguessan UIUC', 'SDM Finger', 'green'),
-    Edge('Adia Radecka UIUC', 'Linda Nguessan UIUC', 'SDM Finger', 'green'),
-    Edge('Alyssa Bradshaw UIUC', 'Charmaine Nieves UIUC', 'SDM Finger', 'green'),
-    Edge('Adia Radecka UIUC', 'Charmaine Nieves UIUC', 'SDM Finger', 'green'),
-    Edge('Alyssa Bradshaw UIUC', 'Omolola Okesanjo UIUC', 'SDM Finger', 'green'),
-    Edge('Adia Radecka UIUC', 'Omolola Okesanjo UIUC', 'SDM Finger', 'green'),
-    Edge('Alyssa Bradshaw UIUC', 'Diana Pham UIUC', 'SDM Finger', 'green'),
-    Edge('Adia Radecka UIUC', 'Diana Pham UIUC', 'SDM Finger', 'green'),
-    Edge('Dr. Golecki UIUC MNT', 'Adia Radecka UIUC', 'SDM Finger', 'green'),
-    Edge('Alyssa Bradshaw UIUC', 'Joshua Sekyere UIUC', 'SDM Finger', 'green'),
-    Edge('Adia Radecka UIUC', 'Joshua Sekyere UIUC', 'SDM Finger', 'green'),
-    Edge('Samuil Donchev UIUC', 'Ayoub Ellouzi BH', 'SDM Finger', 'green'),
-    Edge('Trang Nguyen BH', 'Ayoub Ellouzi BH', 'SDM Finger', 'green'),
-    Edge('Samuil Donchev UIUC', 'Trang Nguyen BH', 'SDM Finger', 'green'),
-    Edge('SRT MNT', 'Trang Nguyen BH', 'SDM Finger', 'green'),
+    Edge('UIUC STUDENT 13', 'UIUC STUDENT 1', 'SDM Finger', 'green'),
+    Edge('UIUC STUDENT 1', 'UIUC STUDENT 2', 'SDM Finger', 'green'),
+    Edge('UIUC STUDENT 1', 'UIUC STUDENT 3', 'SDM Finger', 'green'),
+    Edge('UIUC STUDENT 1', 'UIUC STUDENT 4', 'SDM Finger', 'green'),
+    Edge('UIUC STUDENT 1', 'UIUC STUDENT 5', 'SDM Finger', 'green'),
+    Edge('UIUC STUDENT 13', 'UIUC STUDENT 5', 'SDM Finger', 'green'),
+    Edge('UIUC STUDENT 1', 'UIUC STUDENT 6', 'SDM Finger', 'green'),
+    Edge('UIUC STUDENT 13', 'UIUC STUDENT 6', 'SDM Finger', 'green'),
+    Edge('UIUC STUDENT 1', 'UIUC STUDENT 7', 'SDM Finger', 'green'),
+    Edge('UIUC STUDENT 13', 'UIUC STUDENT 7', 'SDM Finger', 'green'),
+    Edge('UIUC STUDENT 1', 'UIUC STUDENT 8', 'SDM Finger', 'green'),
+    Edge('UIUC STUDENT 13', 'UIUC STUDENT 8', 'SDM Finger', 'green'),
+    Edge('UIUC STUDENT 1', 'UIUC STUDENT 10', 'SDM Finger', 'green'),
+    Edge('UIUC STUDENT 13', 'UIUC STUDENT 10', 'SDM Finger', 'green'),
+    Edge('UIUC STUDENT 1', 'UIUC STUDENT 11', 'SDM Finger', 'green'),
+    Edge('UIUC STUDENT 13', 'UIUC STUDENT 11', 'SDM Finger', 'green'),
+    Edge('UIUC STUDENT 1', 'UIUC STUDENT 9', 'SDM Finger', 'green'),
+    Edge('UIUC STUDENT 13', 'UIUC STUDENT 9', 'SDM Finger', 'green'),
+    Edge('UIUC STUDENT 1', 'UIUC STUDENT 12', 'SDM Finger', 'green'),
+    Edge('UIUC STUDENT 13', 'UIUC STUDENT 12', 'SDM Finger', 'green'),
+    Edge('UIUC MENTOR 2', 'UIUC STUDENT 13', 'SDM Finger', 'green'),
+    Edge('UIUC STUDENT 1', 'UIUC STUDENT 14', 'SDM Finger', 'green'),
+    Edge('UIUC STUDENT 13', 'UIUC STUDENT 14', 'SDM Finger', 'green'),
+    Edge('UIUC STUDENT 2', 'BH STUDENT 1', 'SDM Finger', 'green'),
+    Edge('BH STUDENT 2', 'BH STUDENT 1', 'SDM Finger', 'green'),
+    Edge('UIUC STUDENT 2', 'BH STUDENT 2', 'SDM Finger', 'green'),
+    Edge('SRT MNT', 'BH STUDENT 2', 'SDM Finger', 'green'),
 
     # Motorized SDM Finger
-    Edge('Alyssa Bradshaw UIUC', 'Alyssa Bradshaw UIUC', 'Motorized SDM Finger', 'red'),
-    Edge('Alyssa Bradshaw UIUC', 'Samuil Donchev UIUC', 'Motorized SDM Finger', 'red'),
-    Edge('Adia Radecka UIUC', 'Samuil Donchev UIUC', 'Motorized SDM Finger', 'red'),
-    Edge('Adia Radecka UIUC', 'Jacob Lozano UIUC', 'Motorized SDM Finger', 'red'),
-    Edge('Alyssa Bradshaw UIUC', 'Jacob Lozano UIUC', 'Motorized SDM Finger', 'red'),
-    Edge('Adia Radecka UIUC', 'Adia Radecka UIUC', 'Motorized SDM Finger', 'red'),
-    Edge('Professor Siggelkoe BH MNT', 'Ayoub Ellouzi BH', 'Motorized SDM Finger', 'red'),
-    Edge('Professor Siggelkoe BH MNT', 'Trang Nguyen BH', 'Motorized SDM Finger', 'red'),
+    Edge('UIUC STUDENT 1', 'UIUC STUDENT 1', 'Motorized SDM Finger', 'red'),
+    Edge('UIUC STUDENT 1', 'UIUC STUDENT 2', 'Motorized SDM Finger', 'red'),
+    Edge('UIUC STUDENT 13', 'UIUC STUDENT 2', 'Motorized SDM Finger', 'red'),
+    Edge('UIUC STUDENT 13', 'UIUC STUDENT 6', 'Motorized SDM Finger', 'red'),
+    Edge('UIUC STUDENT 1', 'UIUC STUDENT 6', 'Motorized SDM Finger', 'red'),
+    Edge('UIUC STUDENT 13', 'UIUC STUDENT 13', 'Motorized SDM Finger', 'red'),
+    Edge('BH MENTOR 1', 'BH STUDENT 1', 'Motorized SDM Finger', 'red'),
+    Edge('BH MENTOR 1', 'BH STUDENT 2', 'Motorized SDM Finger', 'red'),
 
     # SIA Actuator
-    Edge('Dr. Golecki UIUC MNT', 'Alyssa Bradshaw UIUC', 'SIA Actuator', 'purple'),
-    Edge('Alyssa Bradshaw UIUC', 'Samuil Donchev UIUC', 'SIA Actuator', 'purple'),
-    Edge('David Medina UIUC', 'Cornell Horne UIUC', 'SIA Actuator', 'purple'),
-    Edge('Alyssa Bradshaw UIUC', 'Jorge Jimenez UIUC', 'SIA Actuator', 'purple'),
-    Edge('Adia Radecka UIUC', 'Jorge Jimenez UIUC', 'SIA Actuator', 'purple'),
-    Edge('Alyssa Bradshaw UIUC', 'Jacob Lozano UIUC', 'SIA Actuator', 'purple'),
-    Edge('Adia Radecka UIUC', 'Jacob Lozano UIUC', 'SIA Actuator', 'purple'),
-    Edge('Adia Radecka UIUC', 'David Medina UIUC', 'SIA Actuator', 'purple'),
-    Edge('Alyssa Bradshaw UIUC', 'David Medina UIUC', 'SIA Actuator', 'purple'),
-    Edge('Adia Radecka UIUC', 'Charmaine Nieves UIUC', 'SIA Actuator', 'purple'),
-    Edge('Alyssa Bradshaw UIUC', 'Charmaine Nieves UIUC', 'SIA Actuator', 'purple'),
-    Edge('Adia Radecka UIUC', 'Omolola Okesanjo UIUC', 'SIA Actuator', 'purple'),
-    Edge('Alyssa Bradshaw UIUC', 'Omolola Okesanjo UIUC', 'SIA Actuator', 'purple'),
-    Edge('Alyssa Bradshaw UIUC', 'Diana Pham UIUC', 'SIA Actuator', 'purple'),
-    Edge('Dr. Golecki UIUC MNT', 'Adia Radecka UIUC', 'SIA Actuator', 'purple'),
-    Edge('Adia Radecka UIUC', 'Joshua Sekyere UIUC', 'SIA Actuator', 'purple'),
-    Edge('Alyssa Bradshaw UIUC', 'Joshua Sekyere UIUC', 'SIA Actuator', 'purple'),
-    Edge('Professor Siggelkoe BH MNT', 'Ayoub Ellouzi BH', 'SIA Actuator', 'purple'),
-    Edge('Professor Siggelkoe BH MNT', 'Trang Nguyen BH', 'SIA Actuator', 'purple'),
+    Edge('UIUC MENTOR 2', 'UIUC STUDENT 1', 'SIA Actuator', 'purple'),
+    Edge('UIUC STUDENT 1', 'UIUC STUDENT 2', 'SIA Actuator', 'purple'),
+    Edge('UIUC STUDENT 8', 'UIUC STUDENT 4', 'SIA Actuator', 'purple'),
+    Edge('UIUC STUDENT 1', 'UIUC STUDENT 5', 'SIA Actuator', 'purple'),
+    Edge('UIUC STUDENT 13', 'UIUC STUDENT 5', 'SIA Actuator', 'purple'),
+    Edge('UIUC STUDENT 1', 'UIUC STUDENT 6', 'SIA Actuator', 'purple'),
+    Edge('UIUC STUDENT 13', 'UIUC STUDENT 6', 'SIA Actuator', 'purple'),
+    Edge('UIUC STUDENT 13', 'UIUC STUDENT 8', 'SIA Actuator', 'purple'),
+    Edge('UIUC STUDENT 1', 'UIUC STUDENT 8', 'SIA Actuator', 'purple'),
+    Edge('UIUC STUDENT 13', 'UIUC STUDENT 11', 'SIA Actuator', 'purple'),
+    Edge('UIUC STUDENT 1', 'UIUC STUDENT 11', 'SIA Actuator', 'purple'),
+    Edge('UIUC STUDENT 13', 'UIUC STUDENT 9', 'SIA Actuator', 'purple'),
+    Edge('UIUC STUDENT 1', 'UIUC STUDENT 9', 'SIA Actuator', 'purple'),
+    Edge('UIUC STUDENT 1', 'UIUC STUDENT 12', 'SIA Actuator', 'purple'),
+    Edge('UIUC MENTOR 2', 'UIUC STUDENT 13', 'SIA Actuator', 'purple'),
+    Edge('UIUC STUDENT 13', 'UIUC STUDENT 14', 'SIA Actuator', 'purple'),
+    Edge('UIUC STUDENT 1', 'UIUC STUDENT 14', 'SIA Actuator', 'purple'),
+    Edge('BH MENTOR 1', 'BH STUDENT 1', 'SIA Actuator', 'purple'),
+    Edge('BH MENTOR 1', 'BH STUDENT 2', 'SIA Actuator', 'purple'),
 
     # Capacitance Sensor
-    Edge('Samuil Donchev UIUC', 'Alyssa Bradshaw UIUC', 'Capacitance Sensor', 'brown'),
-    Edge('Dr. Golecki UIUC MNT', 'Samuil Donchev UIUC', 'Capacitance Sensor', 'brown'),
-    Edge('Dr. Golecki UIUC MNT', 'Jorge Jimenez UIUC', 'Capacitance Sensor', 'brown'),
-    Edge('Dr. Golecki UIUC MNT', 'Jacob Lozano UIUC', 'Capacitance Sensor', 'brown'),
-    Edge('Dr. Golecki UIUC MNT', 'David Medina UIUC', 'Capacitance Sensor', 'brown'),
-    Edge('Dr. Golecki UIUC MNT', 'Charmaine Nieves UIUC', 'Capacitance Sensor', 'brown'),
-    Edge('Dr. Golecki UIUC MNT', 'Omolola Okesanjo UIUC', 'Capacitance Sensor', 'brown'),
-    Edge('Samuil Donchev UIUC', 'Diana Pham UIUC', 'Capacitance Sensor', 'brown'),
-    Edge('Omolola Okesanjo UIUC', 'Joshua Sekyere UIUC', 'Capacitance Sensor', 'brown'),
+    Edge('UIUC STUDENT 2', 'UIUC STUDENT 1', 'Capacitance Sensor', 'brown'),
+    Edge('UIUC MENTOR 2', 'UIUC STUDENT 2', 'Capacitance Sensor', 'brown'),
+    Edge('UIUC MENTOR 2', 'UIUC STUDENT 5', 'Capacitance Sensor', 'brown'),
+    Edge('UIUC MENTOR 2', 'UIUC STUDENT 6', 'Capacitance Sensor', 'brown'),
+    Edge('UIUC MENTOR 2', 'UIUC STUDENT 8', 'Capacitance Sensor', 'brown'),
+    Edge('UIUC MENTOR 2', 'UIUC STUDENT 11', 'Capacitance Sensor', 'brown'),
+    Edge('UIUC MENTOR 2', 'UIUC STUDENT 9', 'Capacitance Sensor', 'brown'),
+    Edge('UIUC STUDENT 2', 'UIUC STUDENT 12', 'Capacitance Sensor', 'brown'),
+    Edge('UIUC STUDENT 9', 'UIUC STUDENT 14', 'Capacitance Sensor', 'brown'),
 
     # Flex Sensor
-    Edge('David Medina UIUC', 'Samuil Donchev UIUC', 'Flex Sensor', 'Orange'),
-    Edge('Cornell Horne UIUC', 'Maya Grant UIUC', 'Flex Sensor', 'Orange'),
-    Edge('Dr. Golecki UIUC MNT', 'Cornell Horne UIUC', 'Flex Sensor', 'Orange'),
-    Edge('David Medina UIUC', 'Jorge Jimenez UIUC', 'Flex Sensor', 'Orange'),
-    Edge('Charmaine Nieves UIUC', 'Jacob Lozano UIUC', 'Flex Sensor', 'Orange'),
-    Edge('SRT MNT', 'Jacob Lozano UIUC', 'Flex Sensor', 'Orange'),
-    Edge('SRT MNT', 'Raefa Malik UIUC', 'Flex Sensor', 'Orange'),
-    Edge('Dr. Golecki UIUC MNT', 'David Medina UIUC', 'Flex Sensor', 'Orange'),
-    Edge('Omolola Okesanjo UIUC', 'David Medina UIUC', 'Flex Sensor', 'Orange'),
-    Edge('Dr. Golecki UIUC MNT', 'Linda Nguessan UIUC', 'Flex Sensor', 'Orange'),
-    Edge('Dr. Golecki UIUC MNT', 'Charmaine Nieves UIUC', 'Flex Sensor', 'Orange'),
-    Edge('Dr. Golecki UIUC MNT', 'Omolola Okesanjo UIUC', 'Flex Sensor', 'Orange'),
-    Edge('SRT MNT', 'Diana Pham UIUC', 'Flex Sensor', 'Orange'),
-    Edge('SRT MNT', 'Joshua Sekyere UIUC', 'Flex Sensor', 'Orange'),
-    Edge('Professor Siggelkoe BH MNT', 'Ayoub Ellouzi BH', 'Flex Sensor', 'Orange'),
-    Edge('Professor Siggelkoe BH MNT', 'Trang Nguyen BH', 'Flex Sensor', 'Orange'),
+    Edge('UIUC STUDENT 8', 'UIUC STUDENT 2', 'Flex Sensor', 'Orange'),
+    Edge('UIUC STUDENT 4', 'UIUC STUDENT 3', 'Flex Sensor', 'Orange'),
+    Edge('UIUC MENTOR 2', 'UIUC STUDENT 4', 'Flex Sensor', 'Orange'),
+    Edge('UIUC STUDENT 8', 'UIUC STUDENT 5', 'Flex Sensor', 'Orange'),
+    Edge('UIUC STUDENT 11', 'UIUC STUDENT 6', 'Flex Sensor', 'Orange'),
+    Edge('SRT MNT', 'UIUC STUDENT 6', 'Flex Sensor', 'Orange'),
+    Edge('SRT MNT', 'UIUC STUDENT 7', 'Flex Sensor', 'Orange'),
+    Edge('UIUC MENTOR 2', 'UIUC STUDENT 8', 'Flex Sensor', 'Orange'),
+    Edge('UIUC STUDENT 9', 'UIUC STUDENT 8', 'Flex Sensor', 'Orange'),
+    Edge('UIUC MENTOR 2', 'UIUC STUDENT 10', 'Flex Sensor', 'Orange'),
+    Edge('UIUC MENTOR 2', 'UIUC STUDENT 11', 'Flex Sensor', 'Orange'),
+    Edge('UIUC MENTOR 2', 'UIUC STUDENT 9', 'Flex Sensor', 'Orange'),
+    Edge('SRT MNT', 'UIUC STUDENT 12', 'Flex Sensor', 'Orange'),
+    Edge('SRT MNT', 'UIUC STUDENT 14', 'Flex Sensor', 'Orange'),
+    Edge('BH MENTOR 1', 'BH STUDENT 1', 'Flex Sensor', 'Orange'),
+    Edge('BH MENTOR 1', 'BH STUDENT 2', 'Flex Sensor', 'Orange'),
 
     # Textile Bending Actuator
-    Edge('Jorge Jimenez UIUC', 'Samuil Donchev UIUC', 'Textile Bending Actuator', 'pink'),
-    Edge('Jacob Lozano UIUC', 'Cornell Horne UIUC', 'Textile Bending Actuator', 'pink'),
-    Edge('David Medina UIUC', 'Cornell Horne UIUC', 'Textile Bending Actuator', 'pink'),
-    Edge('SRT MNT', 'Cornell Horne UIUC', 'Textile Bending Actuator', 'pink'),
-    Edge('Jacob Lozano UIUC', 'Jorge Jimenez UIUC', 'Textile Bending Actuator', 'pink'),
-    Edge('David Medina UIUC', 'Jorge Jimenez UIUC', 'Textile Bending Actuator', 'pink'),
-    Edge('SRT MNT', 'Jorge Jimenez UIUC', 'Textile Bending Actuator', 'pink'),
-    Edge('SRT MNT', 'Jacob Lozano UIUC', 'Textile Bending Actuator', 'pink'),
-    Edge('SRT MNT', 'David Medina UIUC', 'Textile Bending Actuator', 'pink'),
-    Edge('Jacob Lozano UIUC', 'David Medina UIUC', 'Textile Bending Actuator', 'pink'),
-    Edge('Jacob Lozano UIUC', 'Charmaine Nieves UIUC', 'Textile Bending Actuator', 'pink'),
-    Edge('SRT MNT', 'Charmaine Nieves UIUC', 'Textile Bending Actuator', 'pink'),
-    Edge('Jacob Lozano UIUC', 'Omolola Okesanjo UIUC', 'Textile Bending Actuator', 'pink'),
-    Edge('SRT MNT', 'Omolola Okesanjo UIUC', 'Textile Bending Actuator', 'pink'),
-    Edge('SRT MNT', 'Diana Pham UIUC', 'Textile Bending Actuator', 'pink'),
-    Edge('David Medina UIUC', 'Diana Pham UIUC', 'Textile Bending Actuator', 'pink'),
+    Edge('UIUC STUDENT 5', 'UIUC STUDENT 2', 'Textile Bending Actuator', '#F01EAA'),
+    Edge('UIUC STUDENT 6', 'UIUC STUDENT 4', 'Textile Bending Actuator', '#F01EAA'),
+    Edge('UIUC STUDENT 8', 'UIUC STUDENT 4', 'Textile Bending Actuator', '#F01EAA'),
+    Edge('SRT MNT', 'UIUC STUDENT 4', 'Textile Bending Actuator', '#F01EAA'),
+    Edge('UIUC STUDENT 6', 'UIUC STUDENT 5', 'Textile Bending Actuator', '#F01EAA'),
+    Edge('UIUC STUDENT 8', 'UIUC STUDENT 5', 'Textile Bending Actuator', '#F01EAA'),
+    Edge('SRT MNT', 'UIUC STUDENT 5', 'Textile Bending Actuator', '#F01EAA'),
+    Edge('SRT MNT', 'UIUC STUDENT 6', 'Textile Bending Actuator', '#F01EAA'),
+    Edge('SRT MNT', 'UIUC STUDENT 8', 'Textile Bending Actuator', '#F01EAA'),
+    Edge('UIUC STUDENT 6', 'UIUC STUDENT 8', 'Textile Bending Actuator', '#F01EAA'),
+    Edge('UIUC STUDENT 6', 'UIUC STUDENT 11', 'Textile Bending Actuator', '#F01EAA'),
+    Edge('SRT MNT', 'UIUC STUDENT 11', 'Textile Bending Actuator', '#F01EAA'),
+    Edge('UIUC STUDENT 6', 'UIUC STUDENT 9', 'Textile Bending Actuator', '#F01EAA'),
+    Edge('SRT MNT', 'UIUC STUDENT 9', 'Textile Bending Actuator', '#F01EAA'),
+    Edge('SRT MNT', 'UIUC STUDENT 12', 'Textile Bending Actuator', '#F01EAA'),
+    Edge('UIUC STUDENT 8', 'UIUC STUDENT 12', 'Textile Bending Actuator', '#F01EAA'),
 
     #Pneumatic Controller
-    Edge('Jessee Grupper HAR MNT', 'Ilalee Harrison UIUC', "Pneumatic Controller", '#009999'),
-    Edge('Jessee Grupper HAR MNT', 'David Medina UIUC', "Pneumatic Controller", '#009999'),
-    Edge('Jessee Grupper HAR MNT', 'Raefa Malik UIUC', "Pneumatic Controller", '#009999'),
+    Edge('HAR MENTOR 1', 'UIUC MENTOR 1', "Pneumatic Controller", '#009999'),
+    Edge('HAR MENTOR 1', 'UIUC STUDENT 8', "Pneumatic Controller", '#009999'),
+    Edge('HAR MENTOR 1', 'UIUC STUDENT 7', "Pneumatic Controller", '#009999'),
 
     #Textiles Workshop
-    Edge('Tazzy Cole HAR MNT', 'Samuil Donchev UIUC', 'Textiles Workshop', '#999966'),
-    Edge('Tazzy Cole HAR MNT', 'Jacob Lozano UIUC', 'Textiles Workshop', '#999966'),
-    Edge('Tazzy Cole HAR MNT', 'David Medina UIUC', 'Textiles Workshop', '#999966'),
-    Edge('Tazzy Cole HAR MNT', 'Linda Nguessan UIUC', 'Textiles Workshop', '#999966'),
-    Edge('Tazzy Cole HAR MNT', 'Ayoub Ellouzi BH', 'Textiles Workshop', '#999966')
-    Edge('Tazzy Cole HAR MNT', 'Trang Nguyen BH', 'Textiles Workshop', '#999966'),
+    Edge('HAR MENTOR 3', 'UIUC STUDENT 2', 'Textiles Workshop', '#999966'),
+    Edge('HAR MENTOR 3', 'UIUC STUDENT 6', 'Textiles Workshop', '#999966'),
+    Edge('HAR MENTOR 3', 'UIUC STUDENT 8', 'Textiles Workshop', '#999966'),
+    Edge('HAR MENTOR 3', 'UIUC STUDENT 10', 'Textiles Workshop', '#999966'),
+    Edge('HAR MENTOR 3', 'BH STUDENT 1', 'Textiles Workshop', '#999966'),
+    Edge('HAR MENTOR 3', 'BH STUDENT 2', 'Textiles Workshop', '#999966'),
 
-]
 
-edges2 = [
-    #Golecki edges
+    #Soldering cables to SIA Finger
+    Edge('HAR MENTOR 1', 'BH STUDENT 1', 'Soldering cables to SIA Finger', '#05FA48'),
 
-    Edge('Dr.Golecki','Alyssa Bradshaw UIUC', 'McKibbens Muscle - Heat Sealable Fabric Brace/Folding Box' + '\n' + 'SIA Actuator', 'Orange'),
-    Edge('Dr.Golecki','Maya Grant UIUC','McKibbens Muscle', 'Orange'),
-    Edge('Dr.Golecki','Cornell Horne UIUC','McKibbens Muscle', 'Orange'),
-    Edge('Dr.Golecki','Jorge Jimenez UIUC', 'McKibbens Muscle', 'Orange'),
-    Edge('Dr.Golecki','Jacob Lozano UIUC', 'McKibbens Muscle', 'Orange'),
-    Edge('Dr.Golecki','Raefa Malik UIUC', 'McKibbens Muscle', 'Orange'),
-    Edge('Dr.Golecki','David Medina UIUC', 'McKibbens Muscle', 'Orange'),
-    Edge('Dr.Golecki','Linda Nguessan UIUC', 'McKibbens Muscle', 'Orange'),
-    Edge('Dr.Golecki','Charmaine Nieves UIUC', 'McKibbens Muscle', 'Orange'),
-    Edge('Dr.Golecki','Omolola Okesanjo UIUC', 'McKibbens Muscle', 'Orange'),
-    Edge('Dr.Golecki','Adia Radecka UIUC', 'McKibbens Muscle', 'Orange'),
-    Edge('Dr.Golecki', 'Cornell Horne UIUC', 'Heat Sealable Fabric Brace/Folding Box', 'Orange'),
-    Edge('Dr.Golecki', 'Diana Pham UIUC', 'Heat Sealable Fabric Brace/Folding Box', 'Orange'),
-    Edge('Dr.Golecki', 'Adia Radecka UIUC', 'Heat Sealable Fabric Brace/Folding Box', 'Orange'),
-    Edge('Dr.Golecki', 'Joshua Sekyere UIUC', 'Heat Sealable Fabric Brace/Folding Box', 'Orange'),
+    #Gluing SIA finger to glove
+    Edge('HAR MENTOR 1', 'BH STUDENT 1', 'Gluing SIA finger to glove', '#05FA48'),
+
+    #Design Workshop
+    Edge('UIUC MENTOR 1', 'BH STUDENT 1', 'Design Workshop', '#FA4F05'),
+    Edge('UIUC MENTOR 1', 'BH STUDENT 2', 'Design Workshop', '#FA4F05'),
+    Edge('UIUC MENTOR 1', 'UIUC STUDENT 1', 'Design Workshop', '#FA4F05'),
+    Edge('UIUC MENTOR 1', 'UIUC STUDENT 2', 'Design Workshop', '#FA4F05'),
+    Edge('UIUC MENTOR 1', 'UIUC STUDENT 3', 'Design Workshop', '#FA4F05'),
+    Edge('UIUC MENTOR 1', 'UIUC STUDENT 4', 'Design Workshop', '#FA4F05'),
+    Edge('UIUC MENTOR 1', 'UIUC STUDENT 5', 'Design Workshop', '#FA4F05'),
+    Edge('UIUC MENTOR 1', 'UIUC STUDENT 6', 'Design Workshop', '#FA4F05'),
+    Edge('UIUC MENTOR 1', 'UIUC STUDENT 7', 'Design Workshop', '#FA4F05'),
+    Edge('UIUC MENTOR 1', 'UIUC STUDENT 8', 'Design Workshop', '#FA4F05'),
+    Edge('UIUC MENTOR 1', 'UIUC STUDENT 9', 'Design Workshop', '#FA4F05'),
+    Edge('UIUC MENTOR 1', 'UIUC STUDENT 10', 'Design Workshop', '#FA4F05'),
+    Edge('UIUC MENTOR 1', 'UIUC STUDENT 11', 'Design Workshop', '#FA4F05'),
+    Edge('UIUC MENTOR 1', 'UIUC STUDENT 12', 'Design Workshop', '#FA4F05'),
+    Edge('UIUC MENTOR 1', 'UIUC STUDENT 13', 'Design Workshop', '#FA4F05'),
+    Edge('UIUC MENTOR 1', 'UIUC STUDENT 14', 'Design Workshop', '#FA4F05'),
+
 
 ]
 
@@ -210,12 +217,24 @@ edges2 = [
 class Graph:
     nodes = []
     edges = []
-    net = Network(directed=True, height=1500, width=1500)
+    net = Network()
+    type = ''
+    adjacencyMatrix = 0
+    indexToNameDict = {}
 
-    def __init__(self, nodes_list, edges_list):
+    def __init__(self, nodes_list, edges_list, graph_type):
         self.nodes = nodes_list
         self.edges = edges_list
+        self.type = graph_type
 
+        if self.type == 'weighted':
+            self.adjacencyMatrix = np.zeros((len(nodes), len(nodes)))
+            self.indexToNameDict = {}
+            self.net = Network(directed=False, height=1500, width=1500)
+        elif self.type == 'normal':
+            self.net = Network(directed=True, height=1500, width=1500)
+
+    #Dispays the graph
     def show_graph(self):
 
         for edge in self.edges:
@@ -226,34 +245,50 @@ class Graph:
         # adds each node to graph
         for node in self.nodes:
             if 'BH' in node.data:
-                if 'MNT' in node.data:
+                if 'MENTOR' in node.data:
                     self.net.add_node(node.data, value=14 * (1 + (node.out_going_edges_count / len(self.edges))), color = 'Red', title = str(node.out_going_edges_count), shape='diamond')
                 else:
                     self.net.add_node(node.data, value=14 * (1 + (node.out_going_edges_count / len(self.edges))), color='Red', title=str(node.out_going_edges_count))
 
             elif 'HAR' in node.data:
-                if 'MNT' in node.data:
-                    self.net.add_node(node.data, value=14 * (1 + (node.out_going_edges_count / len(self.edges))), color = 'Brown', title = str(node.out_going_edges_count), shape='diamond')
+                if 'MENTOR' in node.data:
+                    self.net.add_node(node.data, value=14 * (1 + (node.out_going_edges_count / len(self.edges))), color = '#A41034', title = str(node.out_going_edges_count), shape='diamond')
                 else:
-                    self.net.add_node(node.data, value=14 * (1 + (node.out_going_edges_count / len(self.edges))),color='Brown', title=str(node.out_going_edges_count))
+                    self.net.add_node(node.data, value=14 * (1 + (node.out_going_edges_count / len(self.edges))),color='#A41034', title=str(node.out_going_edges_count))
 
             elif 'UIUC' in node.data:
-                if  'MNT' in node.data:
-                    self.net.add_node(node.data, value = 14 * (1 + (node.out_going_edges_count / len( self.edges))), color = '#E84A27', borderWidth = '1', title = str(node.out_going_edges_count), shape='diamond')
+                if  'MENTOR' in node.data:
+                    self.net.add_node(node.data, value = 14 * (1 + (node.out_going_edges_count / len( self.edges))), color = '#1F4096', borderWidth = '1', title = str(node.out_going_edges_count), shape='diamond')
                 else:
-                    self.net.add_node(node.data, value = 14 * (1 + (node.out_going_edges_count / len( self.edges))), color = '#E84A27', borderWidth = '1', title = str(node.out_going_edges_count))
+                    self.net.add_node(node.data, value = 14 * (1 + (node.out_going_edges_count / len( self.edges))), color = '#1F4096', borderWidth = '1', title = str(node.out_going_edges_count))
             elif 'SRT MNT' in node.data:
                 if  'MNT' in node.data:
                     self.net.add_node(node.data, value = 14 * (1 + (node.out_going_edges_count / len( self.edges))), color = 'black', borderWidth = '1', title = str(node.out_going_edges_count), shape='diamond')
                 else:
                     self.net.add_node(node.data, value=14 * (1 + (node.out_going_edges_count / len(self.edges))), color='Black', title = str(node.out_going_edges_count))
 
-        # adds each edge to graph
-        for edge in self.edges:
-            self.net.add_edge(edge.start, edge.end, title=edge.title, color=edge.color, smooth=True, smoothtype='dynamic')
+        if self.type == 'weighted':
+            for i in range(len(nodes)):
+                self.indexToNameDict[nodes[i].data] = i
 
+            for edge in self.edges:
+                self.adjacencyMatrix[self.indexToNameDict[edge.start]][self.indexToNameDict[edge.end]] += 1
+
+            for edge in self.edges:
+                self.net.add_edge(edge.start, edge.end, title=edge.title, color='black', smooth=True,
+                                  smoothtype='dynamic',
+                                  width=1 + self.adjacencyMatrix[self.indexToNameDict[edge.start]][
+                                      self.indexToNameDict[edge.end]] *
+                                        self.adjacencyMatrix[self.indexToNameDict[edge.start]][
+                                            self.indexToNameDict[edge.end]])
+        elif self.type == 'normal':
+            for edge in self.edges:
+                self.net.add_edge(edge.start, edge.end, title=edge.title, color=edge.color, smooth=True,
+                                  smoothtype='dynamic')
+
+
+        #shows customization menu
         self.net.show_buttons(filter_=['physics', 'edges', 'nodes'])
-        #self.net.show_buttons(filter_=['physics'])
 
         #set Physics Model
         self.net.repulsion(node_distance=160, central_gravity=0.2, spring_length=200, spring_strength=0.0025, damping=0.09)
@@ -265,6 +300,78 @@ class Graph:
         self.net.show('basic.html')
 
 
-graph = Graph(nodes, edges1)
+
+class WeightedEdgeGraph:
+    nodes = []
+    edges = []
+    net = Network(directed=False, height=1500, width=1500)
+    adjacencyMatrix = 0
+    indexToNameDict = {}
+
+    def __init__(self, nodes_list, edges_list):
+        self.nodes = nodes_list
+        self.edges = edges_list
+        self.adjacencyMatrix = np.zeros((len(nodes),len(nodes)))
+        self.indexToNameDict = {}
+
+    def show_graph(self):
+        for i in range(len(nodes)):
+            self.indexToNameDict[nodes[i].data] = i
+
+        for edge in self.edges:
+                self.adjacencyMatrix[self.indexToNameDict[edge.start]][self.indexToNameDict[edge.end]] += 1
+
+        for node in self.nodes:
+            if 'BH' in node.data:
+                if 'MENTOR' in node.data:
+                    self.net.add_node(node.data, value=14 * (1 + (node.out_going_edges_count / len(self.edges))),
+                                      color='Red', title=str(node.out_going_edges_count), shape='diamond')
+                else:
+                    self.net.add_node(node.data, value=14 * (1 + (node.out_going_edges_count / len(self.edges))),
+                                      color='Red', title=str(node.out_going_edges_count))
+
+            elif 'HAR' in node.data:
+                if 'MENTOR' in node.data:
+                    self.net.add_node(node.data, value=14 * (1 + (node.out_going_edges_count / len(self.edges))),
+                                      color='#A41034', title=str(node.out_going_edges_count), shape='diamond')
+                else:
+                    self.net.add_node(node.data, value=14 * (1 + (node.out_going_edges_count / len(self.edges))),
+                                      color='#A41034', title=str(node.out_going_edges_count))
+
+            elif 'UIUC' in node.data:
+                if 'MENTOR' in node.data:
+                    self.net.add_node(node.data, value=14 * (1 + (node.out_going_edges_count / len(self.edges))),
+                                      color='#1F4096', borderWidth='1', title=str(node.out_going_edges_count),
+                                      shape='diamond')
+                else:
+                    self.net.add_node(node.data, value=14 * (1 + (node.out_going_edges_count / len(self.edges))),
+                                      color='#1F4096', borderWidth='1', title=str(node.out_going_edges_count))
+            elif 'SRT MNT' in node.data:
+                if 'MNT' in node.data:
+                    self.net.add_node(node.data, value=14 * (1 + (node.out_going_edges_count / len(self.edges))),
+                                      color='Yellow', borderWidth='1', title=str(node.out_going_edges_count),
+                                      shape='diamond')
+                else:
+                    self.net.add_node(node.data, value=14 * (1 + (node.out_going_edges_count / len(self.edges))),
+                                      color='Black', title=str(node.out_going_edges_count))
+
+        for edge in self.edges:
+            self.net.add_edge(edge.start, edge.end, title=edge.title, color='black', smooth=True, smoothtype='dynamic', width=1 +  self.adjacencyMatrix[self.indexToNameDict[edge.start]][self.indexToNameDict[edge.end]]*self.adjacencyMatrix[self.indexToNameDict[edge.start]][self.indexToNameDict[edge.end]])
+
+        #shows customization menu
+        self.net.show_buttons(filter_=['physics', 'edges', 'nodes'])
+
+        #set Physics Model
+        self.net.repulsion(node_distance=160, central_gravity=0.2, spring_length=200, spring_strength=0.0025, damping=0.09)
+
+        #make edges rounded and dynamically placed
+        self.net.set_edge_smooth('continuous')
+
+        # displays the graph
+        self.net.show('basic.html')
+
+
+
+graph = Graph(nodes, edges1, 'normal')
 
 graph.show_graph()
