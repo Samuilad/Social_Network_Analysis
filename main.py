@@ -193,22 +193,22 @@ edges1 = [
     Edge('HAR MENTOR 1', 'BH STUDENT 1', 'Gluing SIA finger to glove', '#05FA48'),
 
     #Design Workshop
-    Edge('UIUC MENTOR 1', 'BH STUDENT 1', 'Design Workshop', '#FA4F05'),
-    Edge('UIUC MENTOR 1', 'BH STUDENT 2', 'Design Workshop', '#FA4F05'),
-    Edge('UIUC MENTOR 1', 'UIUC STUDENT 1', 'Design Workshop', '#FA4F05'),
-    Edge('UIUC MENTOR 1', 'UIUC STUDENT 2', 'Design Workshop', '#FA4F05'),
-    Edge('UIUC MENTOR 1', 'UIUC STUDENT 3', 'Design Workshop', '#FA4F05'),
-    Edge('UIUC MENTOR 1', 'UIUC STUDENT 4', 'Design Workshop', '#FA4F05'),
-    Edge('UIUC MENTOR 1', 'UIUC STUDENT 5', 'Design Workshop', '#FA4F05'),
-    Edge('UIUC MENTOR 1', 'UIUC STUDENT 6', 'Design Workshop', '#FA4F05'),
-    Edge('UIUC MENTOR 1', 'UIUC STUDENT 7', 'Design Workshop', '#FA4F05'),
-    Edge('UIUC MENTOR 1', 'UIUC STUDENT 8', 'Design Workshop', '#FA4F05'),
-    Edge('UIUC MENTOR 1', 'UIUC STUDENT 9', 'Design Workshop', '#FA4F05'),
-    Edge('UIUC MENTOR 1', 'UIUC STUDENT 10', 'Design Workshop', '#FA4F05'),
-    Edge('UIUC MENTOR 1', 'UIUC STUDENT 11', 'Design Workshop', '#FA4F05'),
-    Edge('UIUC MENTOR 1', 'UIUC STUDENT 12', 'Design Workshop', '#FA4F05'),
-    Edge('UIUC MENTOR 1', 'UIUC STUDENT 13', 'Design Workshop', '#FA4F05'),
-    Edge('UIUC MENTOR 1', 'UIUC STUDENT 14', 'Design Workshop', '#FA4F05'),
+    Edge('UIUC MENTOR 2', 'BH STUDENT 1', 'Design Workshop', '#FA4F05'),
+    Edge('UIUC MENTOR 2', 'BH STUDENT 2', 'Design Workshop', '#FA4F05'),
+    Edge('UIUC MENTOR 2', 'UIUC STUDENT 1', 'Design Workshop', '#FA4F05'),
+    Edge('UIUC MENTOR 2', 'UIUC STUDENT 2', 'Design Workshop', '#FA4F05'),
+    Edge('UIUC MENTOR 2', 'UIUC STUDENT 3', 'Design Workshop', '#FA4F05'),
+    Edge('UIUC MENTOR 2', 'UIUC STUDENT 4', 'Design Workshop', '#FA4F05'),
+    Edge('UIUC MENTOR 2', 'UIUC STUDENT 5', 'Design Workshop', '#FA4F05'),
+    Edge('UIUC MENTOR 2', 'UIUC STUDENT 6', 'Design Workshop', '#FA4F05'),
+    Edge('UIUC MENTOR 2', 'UIUC STUDENT 7', 'Design Workshop', '#FA4F05'),
+    Edge('UIUC MENTOR 2', 'UIUC STUDENT 8', 'Design Workshop', '#FA4F05'),
+    Edge('UIUC MENTOR 2', 'UIUC STUDENT 9', 'Design Workshop', '#FA4F05'),
+    Edge('UIUC MENTOR 2', 'UIUC STUDENT 10', 'Design Workshop', '#FA4F05'),
+    Edge('UIUC MENTOR 2', 'UIUC STUDENT 11', 'Design Workshop', '#FA4F05'),
+    Edge('UIUC MENTOR 2', 'UIUC STUDENT 12', 'Design Workshop', '#FA4F05'),
+    Edge('UIUC MENTOR 2', 'UIUC STUDENT 13', 'Design Workshop', '#FA4F05'),
+    Edge('UIUC MENTOR 2', 'UIUC STUDENT 14', 'Design Workshop', '#FA4F05'),
 
 
 ]
@@ -296,6 +296,8 @@ class Graph:
 
         # displays the graph
         self.net.show('basic.html')
+        print(self.indexToNameDict['UIUC MENTOR 1'])
+        print(self.adjacencyMatrix)
 
 
 
