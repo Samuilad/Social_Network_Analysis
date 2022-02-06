@@ -19,7 +19,7 @@ class Edge:
     def __init__(self, start, end, title, color):
         self.start = start
         self.end = end
-        self.title = title
+        self.title = title.upper()
         self.color = color
 
 # people/resources involved
@@ -226,10 +226,10 @@ class Graph:
     def __init__(self, nodes_list, edges_list, graph_type, activity = None):
         self.nodes = nodes_list
         self.edges = edges_list
-        self.type = graph_type
-        self.activity = activity
-
-        if self.type == 'weighted':
+        self.type = graph_type.upper()
+        self.activity = activity.upper()
+        print(self.type)
+        if self.type == 'WEIGHTED':
             self.adjacencyMatrix = np.zeros((len(nodes), len(nodes)))
             self.indexToNameDict = {}
             self.net = Network(directed=False, height=1500, width=1500)
@@ -260,7 +260,7 @@ class Graph:
                     self.net.add_node(node.data, value=14 * (1 + (node.out_going_edges_count / len(self.edges))), color='Black', title = str(node.out_going_edges_count))
 
     def add_edges(self):
-        if self.type == 'weighted':
+        if self.type == 'WEIGHTED':
             for i in range(len(nodes)):
                 self.indexToNameDict[nodes[i].data] = i
 
@@ -272,7 +272,7 @@ class Graph:
                     self.net.add_edge(edge.start, edge.end, title=edge.title, color='black', smooth=True, smoothtype='dynamic',
                                     width=1 + 2 * self.adjacencyMatrix[self.indexToNameDict[edge.start]][self.indexToNameDict[edge.end]])
 
-        elif self.type == 'normal':
+        elif self.type == 'NORMAL':
             for edge in self.edges:
                 if edge.title == self.activity or not self.activity:
                     self.net.add_edge(edge.start, edge.end, title=edge.title, color=edge.color, smooth=True, smoothtype='dynamic')
@@ -301,8 +301,15 @@ class Graph:
         # displays the graph
         self.net.show('basic.html')
 
+val = ''
+while val != 'end':
+    print("please type weighted or normal")
+    graph_type = input()
+    print("Please type desired activity or leave press enter for all activities")
+    activity = input()
 
+    graph = Graph(nodes, edges1, graph_type, activity)
+    graph.show_graph()
 
-graph = Graph(nodes, edges1, 'normal', 'SDM Finger')
-
-graph.show_graph()
+    print("press 'enter' to select more graphs or type 'End' to finish")
+    val = input()
