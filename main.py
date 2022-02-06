@@ -217,7 +217,7 @@ edges1 = [
 class Graph:
     nodes = []
     edges = []
-    net = Network()
+    net = Network(directed=True, height=1500, width=1500)
     type = ''
     adjacencyMatrix = 0
     indexToNameDict = {}
@@ -231,18 +231,8 @@ class Graph:
             self.adjacencyMatrix = np.zeros((len(nodes), len(nodes)))
             self.indexToNameDict = {}
             self.net = Network(directed=False, height=1500, width=1500)
-        elif self.type == 'normal':
-            self.net = Network(directed=True, height=1500, width=1500)
 
-    #Dispays the graph
-    def show_graph(self):
-
-        for edge in self.edges:
-            for node in self.nodes:
-                if node.data == edge.start:
-                    node.out_going_edges_count += 1
-
-        # adds each node to graph
+    def add_nodes(self):
         for node in self.nodes:
             if 'BH' in node.data:
                 if 'MENTOR' in node.data:
@@ -267,6 +257,7 @@ class Graph:
                 else:
                     self.net.add_node(node.data, value=14 * (1 + (node.out_going_edges_count / len(self.edges))), color='Black', title = str(node.out_going_edges_count))
 
+    def add_edges(self):
         if self.type == 'weighted':
             for i in range(len(nodes)):
                 self.indexToNameDict[nodes[i].data] = i
@@ -275,88 +266,24 @@ class Graph:
                 self.adjacencyMatrix[self.indexToNameDict[edge.start]][self.indexToNameDict[edge.end]] += 1
 
             for edge in self.edges:
-                self.net.add_edge(edge.start, edge.end, title=edge.title, color='black', smooth=True,
-                                  smoothtype='dynamic',
-                                  width=1 + self.adjacencyMatrix[self.indexToNameDict[edge.start]][
-                                      self.indexToNameDict[edge.end]] *
-                                        self.adjacencyMatrix[self.indexToNameDict[edge.start]][
-                                            self.indexToNameDict[edge.end]])
+                self.net.add_edge(edge.start, edge.end, title=edge.title, color='black', smooth=True, smoothtype='dynamic',
+                                  width=1 + 2 * self.adjacencyMatrix[self.indexToNameDict[edge.start]][self.indexToNameDict[edge.end]])
+
         elif self.type == 'normal':
             for edge in self.edges:
-                self.net.add_edge(edge.start, edge.end, title=edge.title, color=edge.color, smooth=True,
-                                  smoothtype='dynamic')
+                self.net.add_edge(edge.start, edge.end, title=edge.title, color=edge.color, smooth=True, smoothtype='dynamic')
 
-
-        #shows customization menu
-        self.net.show_buttons(filter_=['physics', 'edges', 'nodes'])
-
-        #set Physics Model
-        self.net.repulsion(node_distance=160, central_gravity=0.2, spring_length=200, spring_strength=0.0025, damping=0.09)
-
-        #make edges rounded and dynamically placed
-        self.net.set_edge_smooth('continuous')
-
-        # displays the graph
-        self.net.show('basic.html')
-
-
-
-class WeightedEdgeGraph:
-    nodes = []
-    edges = []
-    net = Network(directed=False, height=1500, width=1500)
-    adjacencyMatrix = 0
-    indexToNameDict = {}
-
-    def __init__(self, nodes_list, edges_list):
-        self.nodes = nodes_list
-        self.edges = edges_list
-        self.adjacencyMatrix = np.zeros((len(nodes),len(nodes)))
-        self.indexToNameDict = {}
-
+    #Dispays the graph
     def show_graph(self):
-        for i in range(len(nodes)):
-            self.indexToNameDict[nodes[i].data] = i
 
         for edge in self.edges:
-                self.adjacencyMatrix[self.indexToNameDict[edge.start]][self.indexToNameDict[edge.end]] += 1
+            for node in self.nodes:
+                if node.data == edge.start:
+                    node.out_going_edges_count += 1
 
-        for node in self.nodes:
-            if 'BH' in node.data:
-                if 'MENTOR' in node.data:
-                    self.net.add_node(node.data, value=14 * (1 + (node.out_going_edges_count / len(self.edges))),
-                                      color='Red', title=str(node.out_going_edges_count), shape='diamond')
-                else:
-                    self.net.add_node(node.data, value=14 * (1 + (node.out_going_edges_count / len(self.edges))),
-                                      color='Red', title=str(node.out_going_edges_count))
+        self.add_nodes()
 
-            elif 'HAR' in node.data:
-                if 'MENTOR' in node.data:
-                    self.net.add_node(node.data, value=14 * (1 + (node.out_going_edges_count / len(self.edges))),
-                                      color='#A41034', title=str(node.out_going_edges_count), shape='diamond')
-                else:
-                    self.net.add_node(node.data, value=14 * (1 + (node.out_going_edges_count / len(self.edges))),
-                                      color='#A41034', title=str(node.out_going_edges_count))
-
-            elif 'UIUC' in node.data:
-                if 'MENTOR' in node.data:
-                    self.net.add_node(node.data, value=14 * (1 + (node.out_going_edges_count / len(self.edges))),
-                                      color='#1F4096', borderWidth='1', title=str(node.out_going_edges_count),
-                                      shape='diamond')
-                else:
-                    self.net.add_node(node.data, value=14 * (1 + (node.out_going_edges_count / len(self.edges))),
-                                      color='#1F4096', borderWidth='1', title=str(node.out_going_edges_count))
-            elif 'SRT MNT' in node.data:
-                if 'MNT' in node.data:
-                    self.net.add_node(node.data, value=14 * (1 + (node.out_going_edges_count / len(self.edges))),
-                                      color='Yellow', borderWidth='1', title=str(node.out_going_edges_count),
-                                      shape='diamond')
-                else:
-                    self.net.add_node(node.data, value=14 * (1 + (node.out_going_edges_count / len(self.edges))),
-                                      color='Black', title=str(node.out_going_edges_count))
-
-        for edge in self.edges:
-            self.net.add_edge(edge.start, edge.end, title=edge.title, color='black', smooth=True, smoothtype='dynamic', width=1 +  self.adjacencyMatrix[self.indexToNameDict[edge.start]][self.indexToNameDict[edge.end]]*self.adjacencyMatrix[self.indexToNameDict[edge.start]][self.indexToNameDict[edge.end]])
+        self.add_edges()
 
         #shows customization menu
         self.net.show_buttons(filter_=['physics', 'edges', 'nodes'])
@@ -372,6 +299,6 @@ class WeightedEdgeGraph:
 
 
 
-graph = Graph(nodes, edges1, 'normal')
+graph = Graph(nodes, edges1, 'weighted')
 
 graph.show_graph()
