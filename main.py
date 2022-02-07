@@ -234,30 +234,35 @@ class Graph:
             self.indexToNameDict = {}
             self.net = Network(directed=False, height=1500, width=1500)
 
+        for edge in self.edges:
+            for node in self.nodes:
+                if node.data == edge.start:
+                    node.out_going_edges_count += 1
+
     def add_nodes(self):
         for node in self.nodes:
             if 'BH' in node.data:
                 if 'MENTOR' in node.data:
-                    self.net.add_node(node.data, value=14 * (1 + (node.out_going_edges_count / len(self.edges))), color = 'Red', title = str(node.out_going_edges_count), shape='diamond')
+                    self.net.add_node(node.data, value=14 * (1 + (node.out_going_edges_count / len(self.edges))), color = 'Red', physics=True ,title = str(node.out_going_edges_count), shape='diamond')
                 else:
-                    self.net.add_node(node.data, value=14 * (1 + (node.out_going_edges_count / len(self.edges))), color='Red', title=str(node.out_going_edges_count))
+                    self.net.add_node(node.data, value=14 * (1 + (node.out_going_edges_count / len(self.edges))), color='Red', physics=True ,title=str(node.out_going_edges_count))
 
             elif 'HAR' in node.data:
                 if 'MENTOR' in node.data:
-                    self.net.add_node(node.data, value=14 * (1 + (node.out_going_edges_count / len(self.edges))), color = '#A41034', title = str(node.out_going_edges_count), shape='diamond')
+                    self.net.add_node(node.data, value=14 * (1 + (node.out_going_edges_count / len(self.edges))), color = '#A41034', physics=True ,title = str(node.out_going_edges_count), shape='diamond')
                 else:
-                    self.net.add_node(node.data, value=14 * (1 + (node.out_going_edges_count / len(self.edges))),color='#A41034', title=str(node.out_going_edges_count))
+                    self.net.add_node(node.data, value=14 * (1 + (node.out_going_edges_count / len(self.edges))),color='#A41034', physics=True ,title=str(node.out_going_edges_count))
 
             elif 'UIUC' in node.data:
                 if  'MENTOR' in node.data:
-                    self.net.add_node(node.data, value = 14 * (1 + (node.out_going_edges_count / len( self.edges))), color = '#1F4096', borderWidth = '1', title = str(node.out_going_edges_count), shape='diamond')
+                    self.net.add_node(node.data, value = 14 * (1 + (node.out_going_edges_count / len( self.edges))), color = '#1F4096', borderWidth = '1', physics=True ,title = str(node.out_going_edges_count), shape='diamond')
                 else:
-                    self.net.add_node(node.data, value = 14 * (1 + (node.out_going_edges_count / len( self.edges))), color = '#1F4096', borderWidth = '1', title = str(node.out_going_edges_count))
+                    self.net.add_node(node.data, value = 14 * (1 + (node.out_going_edges_count / len( self.edges))), color = '#1F4096', borderWidth = '1', physics=True ,title = str(node.out_going_edges_count))
             elif 'SRT MNT' in node.data:
                 if  'MNT' in node.data:
-                    self.net.add_node(node.data, value = 14 * (1 + (node.out_going_edges_count / len( self.edges))), color = 'black', borderWidth = '1', title = str(node.out_going_edges_count), shape='diamond')
+                    self.net.add_node(node.data, value = 14 * (1 + (node.out_going_edges_count / len( self.edges))), color = 'black', physics=True ,borderWidth = '1', title = str(node.out_going_edges_count), shape='diamond')
                 else:
-                    self.net.add_node(node.data, value=14 * (1 + (node.out_going_edges_count / len(self.edges))), color='Black', title = str(node.out_going_edges_count))
+                    self.net.add_node(node.data, value=14 * (1 + (node.out_going_edges_count / len(self.edges))), color='Black', physics=True ,title = str(node.out_going_edges_count))
 
     def add_edges(self):
         if self.type == 'WEIGHTED':
@@ -269,21 +274,23 @@ class Graph:
 
             for edge in self.edges:
                 if edge.title == self.activity or not self.activity:
-                    self.net.add_edge(edge.start, edge.end, title=edge.title, color='black', smooth=True, smoothtype='dynamic',
+                    self.net.add_edge(edge.start, edge.end, title=edge.title, color='black', physics=True ,smooth=True, smoothtype='dynamic',
                                     width=1 + 2 * self.adjacencyMatrix[self.indexToNameDict[edge.start]][self.indexToNameDict[edge.end]])
 
         elif self.type == 'NORMAL':
-            for edge in self.edges:
-                if edge.title == self.activity or not self.activity:
-                    self.net.add_edge(edge.start, edge.end, title=edge.title, color=edge.color, smooth=True, smoothtype='dynamic')
+            print('here1')
+            if self.activity == '' or self.activity == 'ALL':
+                print('here2')
+                for edge in self.edges:
+                    self.net.add_edge(edge.start, edge.end, title=edge.title, color=edge.color, physics=False, smooth=True, smoothtype='dynamic')
+            else:
+                for edge in self.edges:
+                    if edge.title == self.activity or not self.activity:
+                        self.net.add_edge(edge.start, edge.end, title=edge.title, color=edge.color, physics=True ,smooth=True, smoothtype='dynamic')
+
 
     #Dispays the graph
     def show_graph(self):
-
-        for edge in self.edges:
-            for node in self.nodes:
-                if node.data == edge.start:
-                    node.out_going_edges_count += 1
 
         self.add_nodes()
 
@@ -293,7 +300,7 @@ class Graph:
         self.net.show_buttons(filter_=['physics', 'edges', 'nodes'])
 
         #set Physics Model
-        self.net.repulsion(node_distance=160, central_gravity=0.2, spring_length=200, spring_strength=0.0025, damping=0.09)
+        self.net.repulsion(node_distance=160, central_gravity=0.01, spring_length=200, spring_strength=0.0025, damping=0.09)
 
         #make edges rounded and dynamically placed
         self.net.set_edge_smooth('continuous')
@@ -302,7 +309,7 @@ class Graph:
         self.net.show('basic.html')
 
 val = ''
-while val != 'end':
+while val.upper() != 'END':
     print("please type weighted or normal")
     graph_type = input()
     print("Please type desired activity or leave press enter for all activities")
@@ -310,6 +317,6 @@ while val != 'end':
 
     graph = Graph(nodes, edges1, graph_type, activity)
     graph.show_graph()
-
+    graph.net.edges.clear()
     print("press 'enter' to select more graphs or type 'End' to finish")
     val = input()
