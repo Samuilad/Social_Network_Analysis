@@ -1,7 +1,9 @@
 from pyvis.network import Network
 import numpy as np
-
+import csv
 import json
+
+
 
 class Node:
     data = ''
@@ -16,203 +18,36 @@ class Edge:
     title = ''
     color = ''
 
-    def __init__(self, start, end, title, color):
+    def __init__(self, start, end, title, color='black'):
         self.start = start
         self.end = end
         self.title = title.upper()
         self.color = color
 
-# people/resources involved
-nodes = [Node('SRT MNT'), Node('UIUC STUDENT 1 YR 2'), Node('UIUC STUDENT 2'), Node('UIUC STUDENT 3'), Node('UIUC STUDENT 4'),
-         Node('UIUC STUDENT 5'), Node('UIUC STUDENT 6'), Node('UIUC STUDENT 7'), Node('UIUC STUDENT 8'),
-         Node('UIUC STUDENT 10'), Node('UIUC STUDENT 11'), Node('UIUC STUDENT 9'), Node('UIUC STUDENT 12'),
-         Node('UIUC STUDENT 13 YR 2'), Node('UIUC STUDENT 14'), Node('UIUC MENTOR 1'), Node('BH STUDENT 1'),
-         Node('BH STUDENT 2'), Node('UIUC MENTOR 2'), Node('BH MENTOR 1'), Node('HAR MENTOR 1'), Node('HAR MENTOR 2'), Node('HAR MENTOR 3')]
-
-# Displays the connection between teacher and student
-edges1 = [
-    # McKibbens
-    Edge('SRT MNT', 'UIUC STUDENT 2', 'McKibbens Muscle', 'blue'),
-    Edge('UIUC MENTOR 2', 'UIUC STUDENT 1 YR 2', 'McKibbens Muscle', 'blue'),
-    Edge('UIUC MENTOR 2', 'UIUC STUDENT 3', 'McKibbens Muscle', 'blue'),
-    Edge('UIUC MENTOR 2', 'UIUC STUDENT 4', 'McKibbens Muscle', 'blue'),
-    Edge('UIUC MENTOR 2', 'UIUC STUDENT 5', 'McKibbens Muscle', 'blue'),
-    Edge('UIUC MENTOR 2', 'UIUC STUDENT 6', 'McKibbens Muscle', 'blue'),
-    Edge('UIUC MENTOR 2', 'UIUC STUDENT 7', 'McKibbens Muscle', 'blue'),
-    Edge('UIUC MENTOR 2', 'UIUC STUDENT 8', 'McKibbens Muscle', 'blue'),
-    Edge('UIUC MENTOR 2', 'UIUC STUDENT 10', 'McKibbens Muscle', 'blue'),
-    Edge('UIUC MENTOR 2', 'UIUC STUDENT 11', 'McKibbens Muscle', 'blue'),
-    Edge('UIUC MENTOR 2', 'UIUC STUDENT 9', 'McKibbens Muscle', 'blue'),
-    Edge('UIUC STUDENT 2', 'UIUC STUDENT 12', 'McKibbens Muscle', 'blue'),
-    Edge('UIUC MENTOR 2', 'UIUC STUDENT 13 YR 2', 'McKibbens Muscle', 'blue'),
-    Edge('UIUC STUDENT 9', 'UIUC STUDENT 14', 'McKibbens Muscle', 'blue'),
-    Edge('BH MENTOR 1', 'BH STUDENT 1', 'McKibbens Muscle', 'blue'),
-    Edge('BH MENTOR 1', 'BH STUDENT 2', 'McKibbens Muscle', 'blue'),
-
-    # Heat Sealable Fabric Brace or Folding Box
-    Edge('UIUC MENTOR 2', 'UIUC STUDENT 1 YR 2', 'Heat Sealable Fabric Brace or Folding Box', 'black'),
-    Edge('UIUC STUDENT 14', 'UIUC STUDENT 3', 'Heat Sealable Fabric Brace or Folding Box', 'black'),
-    Edge('UIUC MENTOR 2', 'UIUC STUDENT 4', 'Heat Sealable Fabric Brace or Folding Box', 'black'),
-    Edge('UIUC STUDENT 12', 'UIUC STUDENT 5', 'Heat Sealable Fabric Brace or Folding Box', 'black'),
-    Edge('UIUC STUDENT 11', 'UIUC STUDENT 6', 'Heat Sealable Fabric Brace or Folding Box', 'black'),
-    Edge('SRT MNT', 'UIUC STUDENT 6', 'Heat Sealable Fabric Brace or Folding Box', 'black'),
-    Edge('UIUC STUDENT 12', 'UIUC STUDENT 8', 'Heat Sealable Fabric Brace or Folding Box', 'black'),
-    Edge('UIUC STUDENT 12', 'UIUC STUDENT 11', 'Heat Sealable Fabric Brace or Folding Box', 'black'),
-    Edge('UIUC STUDENT 14', 'UIUC STUDENT 9', 'Heat Sealable Fabric Brace or Folding Box', 'black'),
-    Edge('UIUC MENTOR 2', 'UIUC STUDENT 12', 'Heat Sealable Fabric Brace or Folding Box', 'black'),
-    Edge('UIUC MENTOR 2', 'UIUC STUDENT 13 YR 2', 'Heat Sealable Fabric Brace or Folding Box', 'black'),
-    Edge('UIUC MENTOR 2', 'UIUC STUDENT 14', 'Heat Sealable Fabric Brace or Folding Box', 'black'),
-    Edge('BH MENTOR 1', 'BH STUDENT 1', 'Heat Sealable Fabric Brace or Folding Box', 'black'),
-    Edge('BH MENTOR 1', 'BH STUDENT 2', 'Heat Sealable Fabric Brace or Folding Box', 'black'),
-
-    # SDM Finger
-    Edge('UIUC STUDENT 13 YR 2', 'UIUC STUDENT 1 YR 2', 'SDM Finger', 'green'),
-    Edge('UIUC STUDENT 1 YR 2', 'UIUC STUDENT 2', 'SDM Finger', 'green'),
-    Edge('UIUC STUDENT 1 YR 2', 'UIUC STUDENT 3', 'SDM Finger', 'green'),
-    Edge('UIUC STUDENT 1 YR 2', 'UIUC STUDENT 4', 'SDM Finger', 'green'),
-    Edge('UIUC STUDENT 1 YR 2', 'UIUC STUDENT 5', 'SDM Finger', 'green'),
-    Edge('UIUC STUDENT 13 YR 2', 'UIUC STUDENT 5', 'SDM Finger', 'green'),
-    Edge('UIUC STUDENT 1 YR 2', 'UIUC STUDENT 6', 'SDM Finger', 'green'),
-    Edge('UIUC STUDENT 13 YR 2', 'UIUC STUDENT 6', 'SDM Finger', 'green'),
-    Edge('UIUC STUDENT 1 YR 2', 'UIUC STUDENT 7', 'SDM Finger', 'green'),
-    Edge('UIUC STUDENT 13 YR 2', 'UIUC STUDENT 7', 'SDM Finger', 'green'),
-    Edge('UIUC STUDENT 1 YR 2', 'UIUC STUDENT 8', 'SDM Finger', 'green'),
-    Edge('UIUC STUDENT 13 YR 2', 'UIUC STUDENT 8', 'SDM Finger', 'green'),
-    Edge('UIUC STUDENT 1 YR 2', 'UIUC STUDENT 10', 'SDM Finger', 'green'),
-    Edge('UIUC STUDENT 13 YR 2', 'UIUC STUDENT 10', 'SDM Finger', 'green'),
-    Edge('UIUC STUDENT 1 YR 2', 'UIUC STUDENT 11', 'SDM Finger', 'green'),
-    Edge('UIUC STUDENT 13 YR 2', 'UIUC STUDENT 11', 'SDM Finger', 'green'),
-    Edge('UIUC STUDENT 1 YR 2', 'UIUC STUDENT 9', 'SDM Finger', 'green'),
-    Edge('UIUC STUDENT 13 YR 2', 'UIUC STUDENT 9', 'SDM Finger', 'green'),
-    Edge('UIUC STUDENT 1 YR 2', 'UIUC STUDENT 12', 'SDM Finger', 'green'),
-    Edge('UIUC STUDENT 13 YR 2', 'UIUC STUDENT 12', 'SDM Finger', 'green'),
-    Edge('UIUC MENTOR 2', 'UIUC STUDENT 13 YR 2', 'SDM Finger', 'green'),
-    Edge('UIUC STUDENT 1 YR 2', 'UIUC STUDENT 14', 'SDM Finger', 'green'),
-    Edge('UIUC STUDENT 13 YR 2', 'UIUC STUDENT 14', 'SDM Finger', 'green'),
-    Edge('UIUC STUDENT 2', 'BH STUDENT 1', 'SDM Finger', 'green'),
-    Edge('BH STUDENT 2', 'BH STUDENT 1', 'SDM Finger', 'green'),
-    Edge('UIUC STUDENT 2', 'BH STUDENT 2', 'SDM Finger', 'green'),
-    Edge('SRT MNT', 'BH STUDENT 2', 'SDM Finger', 'green'),
-
-    # Motorized SDM Finger
-    Edge('UIUC STUDENT 1 YR 2', 'UIUC STUDENT 1 YR 2', 'Motorized SDM Finger', 'red'),
-    Edge('UIUC STUDENT 1 YR 2', 'UIUC STUDENT 2', 'Motorized SDM Finger', 'red'),
-    Edge('UIUC STUDENT 13 YR 2', 'UIUC STUDENT 2', 'Motorized SDM Finger', 'red'),
-    Edge('UIUC STUDENT 13 YR 2', 'UIUC STUDENT 6', 'Motorized SDM Finger', 'red'),
-    Edge('UIUC STUDENT 1 YR 2', 'UIUC STUDENT 6', 'Motorized SDM Finger', 'red'),
-    Edge('UIUC STUDENT 13 YR 2', 'UIUC STUDENT 13 YR 2', 'Motorized SDM Finger', 'red'),
-    Edge('BH MENTOR 1', 'BH STUDENT 1', 'Motorized SDM Finger', 'red'),
-    Edge('BH MENTOR 1', 'BH STUDENT 2', 'Motorized SDM Finger', 'red'),
-
-    # SIA Actuator
-    Edge('UIUC MENTOR 2', 'UIUC STUDENT 1 YR 2', 'SIA Actuator', 'purple'),
-    Edge('UIUC STUDENT 1 YR 2', 'UIUC STUDENT 2', 'SIA Actuator', 'purple'),
-    Edge('UIUC STUDENT 8', 'UIUC STUDENT 4', 'SIA Actuator', 'purple'),
-    Edge('UIUC STUDENT 1 YR 2', 'UIUC STUDENT 5', 'SIA Actuator', 'purple'),
-    Edge('UIUC STUDENT 13 YR 2', 'UIUC STUDENT 5', 'SIA Actuator', 'purple'),
-    Edge('UIUC STUDENT 1 YR 2', 'UIUC STUDENT 6', 'SIA Actuator', 'purple'),
-    Edge('UIUC STUDENT 13 YR 2', 'UIUC STUDENT 6', 'SIA Actuator', 'purple'),
-    Edge('UIUC STUDENT 13 YR 2', 'UIUC STUDENT 8', 'SIA Actuator', 'purple'),
-    Edge('UIUC STUDENT 1 YR 2', 'UIUC STUDENT 8', 'SIA Actuator', 'purple'),
-    Edge('UIUC STUDENT 13 YR 2', 'UIUC STUDENT 11', 'SIA Actuator', 'purple'),
-    Edge('UIUC STUDENT 1 YR 2', 'UIUC STUDENT 11', 'SIA Actuator', 'purple'),
-    Edge('UIUC STUDENT 13 YR 2', 'UIUC STUDENT 9', 'SIA Actuator', 'purple'),
-    Edge('UIUC STUDENT 1 YR 2', 'UIUC STUDENT 9', 'SIA Actuator', 'purple'),
-    Edge('UIUC STUDENT 1 YR 2', 'UIUC STUDENT 12', 'SIA Actuator', 'purple'),
-    Edge('UIUC MENTOR 2', 'UIUC STUDENT 13 YR 2', 'SIA Actuator', 'purple'),
-    Edge('UIUC STUDENT 13 YR 2', 'UIUC STUDENT 14', 'SIA Actuator', 'purple'),
-    Edge('UIUC STUDENT 1 YR 2', 'UIUC STUDENT 14', 'SIA Actuator', 'purple'),
-    Edge('BH MENTOR 1', 'BH STUDENT 1', 'SIA Actuator', 'purple'),
-    Edge('BH MENTOR 1', 'BH STUDENT 2', 'SIA Actuator', 'purple'),
-
-    # Capacitance Sensor
-    Edge('UIUC STUDENT 2', 'UIUC STUDENT 1 YR 2', 'Capacitance Sensor', 'brown'),
-    Edge('UIUC MENTOR 2', 'UIUC STUDENT 2', 'Capacitance Sensor', 'brown'),
-    Edge('UIUC MENTOR 2', 'UIUC STUDENT 5', 'Capacitance Sensor', 'brown'),
-    Edge('UIUC MENTOR 2', 'UIUC STUDENT 6', 'Capacitance Sensor', 'brown'),
-    Edge('UIUC MENTOR 2', 'UIUC STUDENT 8', 'Capacitance Sensor', 'brown'),
-    Edge('UIUC MENTOR 2', 'UIUC STUDENT 11', 'Capacitance Sensor', 'brown'),
-    Edge('UIUC MENTOR 2', 'UIUC STUDENT 9', 'Capacitance Sensor', 'brown'),
-    Edge('UIUC STUDENT 2', 'UIUC STUDENT 12', 'Capacitance Sensor', 'brown'),
-    Edge('UIUC STUDENT 9', 'UIUC STUDENT 14', 'Capacitance Sensor', 'brown'),
-
-    # Flex Sensor
-    Edge('UIUC STUDENT 8', 'UIUC STUDENT 2', 'Flex Sensor', 'Orange'),
-    Edge('UIUC STUDENT 4', 'UIUC STUDENT 3', 'Flex Sensor', 'Orange'),
-    Edge('UIUC MENTOR 2', 'UIUC STUDENT 4', 'Flex Sensor', 'Orange'),
-    Edge('UIUC STUDENT 8', 'UIUC STUDENT 5', 'Flex Sensor', 'Orange'),
-    Edge('UIUC STUDENT 11', 'UIUC STUDENT 6', 'Flex Sensor', 'Orange'),
-    Edge('SRT MNT', 'UIUC STUDENT 6', 'Flex Sensor', 'Orange'),
-    Edge('SRT MNT', 'UIUC STUDENT 7', 'Flex Sensor', 'Orange'),
-    Edge('UIUC MENTOR 2', 'UIUC STUDENT 8', 'Flex Sensor', 'Orange'),
-    Edge('UIUC STUDENT 9', 'UIUC STUDENT 8', 'Flex Sensor', 'Orange'),
-    Edge('UIUC MENTOR 2', 'UIUC STUDENT 10', 'Flex Sensor', 'Orange'),
-    Edge('UIUC MENTOR 2', 'UIUC STUDENT 11', 'Flex Sensor', 'Orange'),
-    Edge('UIUC MENTOR 2', 'UIUC STUDENT 9', 'Flex Sensor', 'Orange'),
-    Edge('SRT MNT', 'UIUC STUDENT 12', 'Flex Sensor', 'Orange'),
-    Edge('SRT MNT', 'UIUC STUDENT 14', 'Flex Sensor', 'Orange'),
-    Edge('BH MENTOR 1', 'BH STUDENT 1', 'Flex Sensor', 'Orange'),
-    Edge('BH MENTOR 1', 'BH STUDENT 2', 'Flex Sensor', 'Orange'),
-
-    # Textile Bending Actuator
-    Edge('UIUC STUDENT 5', 'UIUC STUDENT 2', 'Textile Bending Actuator', '#F01EAA'),
-    Edge('UIUC STUDENT 6', 'UIUC STUDENT 4', 'Textile Bending Actuator', '#F01EAA'),
-    Edge('UIUC STUDENT 8', 'UIUC STUDENT 4', 'Textile Bending Actuator', '#F01EAA'),
-    Edge('SRT MNT', 'UIUC STUDENT 4', 'Textile Bending Actuator', '#F01EAA'),
-    Edge('UIUC STUDENT 6', 'UIUC STUDENT 5', 'Textile Bending Actuator', '#F01EAA'),
-    Edge('UIUC STUDENT 8', 'UIUC STUDENT 5', 'Textile Bending Actuator', '#F01EAA'),
-    Edge('SRT MNT', 'UIUC STUDENT 5', 'Textile Bending Actuator', '#F01EAA'),
-    Edge('SRT MNT', 'UIUC STUDENT 6', 'Textile Bending Actuator', '#F01EAA'),
-    Edge('SRT MNT', 'UIUC STUDENT 8', 'Textile Bending Actuator', '#F01EAA'),
-    Edge('UIUC STUDENT 6', 'UIUC STUDENT 8', 'Textile Bending Actuator', '#F01EAA'),
-    Edge('UIUC STUDENT 6', 'UIUC STUDENT 11', 'Textile Bending Actuator', '#F01EAA'),
-    Edge('SRT MNT', 'UIUC STUDENT 11', 'Textile Bending Actuator', '#F01EAA'),
-    Edge('UIUC STUDENT 6', 'UIUC STUDENT 9', 'Textile Bending Actuator', '#F01EAA'),
-    Edge('SRT MNT', 'UIUC STUDENT 9', 'Textile Bending Actuator', '#F01EAA'),
-    Edge('SRT MNT', 'UIUC STUDENT 12', 'Textile Bending Actuator', '#F01EAA'),
-    Edge('UIUC STUDENT 8', 'UIUC STUDENT 12', 'Textile Bending Actuator', '#F01EAA'),
-
-    #Pneumatic Controller
-    Edge('HAR MENTOR 1', 'UIUC MENTOR 1', "Pneumatic Controller", '#009999'),
-    Edge('HAR MENTOR 1', 'UIUC STUDENT 8', "Pneumatic Controller", '#009999'),
-    Edge('HAR MENTOR 1', 'UIUC STUDENT 7', "Pneumatic Controller", '#009999'),
-
-    #Textiles Workshop
-    Edge('HAR MENTOR 3', 'UIUC STUDENT 2', 'Textiles Workshop', '#999966'),
-    Edge('HAR MENTOR 3', 'UIUC STUDENT 6', 'Textiles Workshop', '#999966'),
-    Edge('HAR MENTOR 3', 'UIUC STUDENT 8', 'Textiles Workshop', '#999966'),
-    Edge('HAR MENTOR 3', 'UIUC STUDENT 10', 'Textiles Workshop', '#999966'),
-    Edge('HAR MENTOR 3', 'BH STUDENT 1', 'Textiles Workshop', '#999966'),
-    Edge('HAR MENTOR 3', 'BH STUDENT 2', 'Textiles Workshop', '#999966'),
-
-
-    #Soldering cables to SIA Finger
-    Edge('HAR MENTOR 1', 'BH STUDENT 1', 'Soldering cables to SIA Finger', '#05FA48'),
-
-    #Gluing SIA finger to glove
-    Edge('HAR MENTOR 1', 'BH STUDENT 1', 'Gluing SIA finger to glove', '#05FA48'),
-
-    #Design Workshop
-    Edge('UIUC MENTOR 2', 'BH STUDENT 1', 'Design Workshop', '#FA4F05'),
-    Edge('UIUC MENTOR 2', 'BH STUDENT 2', 'Design Workshop', '#FA4F05'),
-    Edge('UIUC MENTOR 2', 'UIUC STUDENT 1 YR 2', 'Design Workshop', '#FA4F05'),
-    Edge('UIUC MENTOR 2', 'UIUC STUDENT 2', 'Design Workshop', '#FA4F05'),
-    Edge('UIUC MENTOR 2', 'UIUC STUDENT 3', 'Design Workshop', '#FA4F05'),
-    Edge('UIUC MENTOR 2', 'UIUC STUDENT 4', 'Design Workshop', '#FA4F05'),
-    Edge('UIUC MENTOR 2', 'UIUC STUDENT 5', 'Design Workshop', '#FA4F05'),
-    Edge('UIUC MENTOR 2', 'UIUC STUDENT 6', 'Design Workshop', '#FA4F05'),
-    Edge('UIUC MENTOR 2', 'UIUC STUDENT 7', 'Design Workshop', '#FA4F05'),
-    Edge('UIUC MENTOR 2', 'UIUC STUDENT 8', 'Design Workshop', '#FA4F05'),
-    Edge('UIUC MENTOR 2', 'UIUC STUDENT 9', 'Design Workshop', '#FA4F05'),
-    Edge('UIUC MENTOR 2', 'UIUC STUDENT 10', 'Design Workshop', '#FA4F05'),
-    Edge('UIUC MENTOR 2', 'UIUC STUDENT 11', 'Design Workshop', '#FA4F05'),
-    Edge('UIUC MENTOR 2', 'UIUC STUDENT 12', 'Design Workshop', '#FA4F05'),
-    Edge('UIUC MENTOR 2', 'UIUC STUDENT 13 YR 2', 'Design Workshop', '#FA4F05'),
-    Edge('UIUC MENTOR 2', 'UIUC STUDENT 14', 'Design Workshop', '#FA4F05'),
-
-
-]
-
+class Parser:
+    edge_header = []
+    node_header = []
+    edge_first = True
+    node_first = True
+    def __init__(self, edge_file_name, node_file_name):
+        # Reads data csv edge data
+        edge_file = open(edge_file_name)
+        edge_csv_reader = csv.reader(edge_file)
+        self.edge_header = edge_csv_reader
+        for row in self.edge_header:
+            if self.edge_first:
+                self.edge_first = False
+                continue
+            edges.append(Edge(row[1],row[2],row[0]))
+        # Reads data csv node data
+        node_file = open(node_file_name)
+        node_csv_reader = csv.reader(node_file)
+        self.node_header = node_csv_reader
+        for row in self.node_header:
+            if self.node_first:
+                self.node_first = False
+                continue
+            nodes.append(Node(row[0]))
 
 class Graph:
     nodes = []
@@ -238,31 +73,61 @@ class Graph:
             for node in self.nodes:
                 if node.data == edge.start:
                     node.out_going_edges_count += 1
-
+        print(len(self.edges))
     def add_nodes(self):
         for node in self.nodes:
             if 'BH' in node.data:
                 if 'MENTOR' in node.data:
-                    self.net.add_node(node.data, value=14 * (1 + (node.out_going_edges_count / len(self.edges))), color = 'Red', physics=True ,title = str(node.out_going_edges_count), shape='diamond')
+                    self.net.add_node(node.data, value=14 * (1 + (node.out_going_edges_count / len(self.edges))), color = '#ff7f0e', physics=True ,title = str(node.out_going_edges_count), shape='diamond')
                 else:
-                    self.net.add_node(node.data, value=14 * (1 + (node.out_going_edges_count / len(self.edges))), color='Red', physics=True ,title=str(node.out_going_edges_count))
+                    self.net.add_node(node.data, value=14 * (1 + (node.out_going_edges_count / len(self.edges))), color='#ffbb78', physics=True ,title=str(node.out_going_edges_count))
 
             elif 'HAR' in node.data:
                 if 'MENTOR' in node.data:
-                    self.net.add_node(node.data, value=14 * (1 + (node.out_going_edges_count / len(self.edges))), color = '#A41034', physics=True ,title = str(node.out_going_edges_count), shape='diamond')
-                else:
-                    self.net.add_node(node.data, value=14 * (1 + (node.out_going_edges_count / len(self.edges))),color='#A41034', physics=True ,title=str(node.out_going_edges_count))
+                    self.net.add_node(node.data, value=14 * (1 + (node.out_going_edges_count / len(self.edges))), color = '#d62728', physics=True ,title = str(node.out_going_edges_count), shape='diamond')
+                elif 'SRT' in node.data:
+                    self.net.add_node(node.data, value=14 * (1 + (node.out_going_edges_count / len(self.edges))),
+                                  color='#ff9896', physics=True, borderWidth='1', title=str(node.out_going_edges_count),
+                                  shape='diamond')
 
             elif 'UIUC' in node.data:
                 if  'MENTOR' in node.data:
-                    self.net.add_node(node.data, value = 14 * (1 + (node.out_going_edges_count / len( self.edges))), color = '#1F4096', borderWidth = '1', physics=True ,title = str(node.out_going_edges_count), shape='diamond')
+                    self.net.add_node(node.data, value = 14 * (1 + (node.out_going_edges_count / len( self.edges))), color = '#1f77b4', borderWidth = '1', physics=True ,title = str(node.out_going_edges_count), shape='diamond')
+                elif "YR 2" in node.data:
+                    self.net.add_node(node.data, value=14 * (1 + (node.out_going_edges_count / len(self.edges))),color='#5e96e0', physics=True ,title=str(node.out_going_edges_count))
                 else:
-                    self.net.add_node(node.data, value = 14 * (1 + (node.out_going_edges_count / len( self.edges))), color = '#1F4096', borderWidth = '1', physics=True ,title = str(node.out_going_edges_count))
-            elif 'SRT MNT' in node.data:
-                if  'MNT' in node.data:
-                    self.net.add_node(node.data, value = 14 * (1 + (node.out_going_edges_count / len( self.edges))), color = 'black', physics=True ,borderWidth = '1', title = str(node.out_going_edges_count), shape='diamond')
-                else:
-                    self.net.add_node(node.data, value=14 * (1 + (node.out_going_edges_count / len(self.edges))), color='Black', physics=True ,title = str(node.out_going_edges_count))
+                    self.net.add_node(node.data, value=14 * (1 + (node.out_going_edges_count / len(self.edges))),color='#aec7e8', physics=True, title=str(node.out_going_edges_count))
+
+    def edge_colors(self, edge):
+        physics_bool = True
+        if self.activity == '' or self.activity == 'ALL':
+            physics_bool = False
+
+        if "UIUC" in edge.start:
+            if "MENTOR" in edge.start:
+                self.net.add_edge(edge.start, edge.end, title=edge.title, color='#1f77b4', physics=physics_bool, smooth=True,
+                                  smoothtype='dynamic')
+            elif "YR 2" in edge.start:
+                self.net.add_edge(edge.start, edge.end, title=edge.title, color='#5e96e0', physics=physics_bool, smooth=True,
+                                  smoothtype='dynamic')
+            elif "YR 1" in edge.start:
+                self.net.add_edge(edge.start, edge.end, title=edge.title, color='#aec7e8', physics=physics_bool, smooth=True,
+                                  smoothtype='dynamic')
+        if 'HAR' in edge.start:
+            if 'MENTOR' in edge.start:
+                self.net.add_edge(edge.start, edge.end, title=edge.title, color='#d62728', physics=physics_bool,
+                                  smooth=True, smoothtype='dynamic')
+            elif 'SRT' in edge.start:
+                self.net.add_edge(edge.start, edge.end, title=edge.title, color='#ff9896', physics=physics_bool,
+                                  smooth=True, smoothtype='dynamic')
+
+        if 'BH' in edge.start:
+            if 'MENTOR' in edge.start:
+                self.net.add_edge(edge.start, edge.end, title=edge.title, color='#ff7f0e', physics=physics_bool,
+                                  smooth=True, smoothtype='dynamic')
+            elif 'YR 1' in edge.start:
+                self.net.add_edge(edge.start, edge.end, title=edge.title, color='#ffbb78', physics=physics_bool,
+                                  smooth=True, smoothtype='dynamic')
 
     def add_edges(self):
         if self.type == 'WEIGHTED':
@@ -274,19 +139,17 @@ class Graph:
 
             for edge in self.edges:
                 if edge.title == self.activity or not self.activity:
-                    self.net.add_edge(edge.start, edge.end, title=edge.title, color='black', physics=True ,smooth=True, smoothtype='dynamic',
-                                    width=1 + 2 * self.adjacencyMatrix[self.indexToNameDict[edge.start]][self.indexToNameDict[edge.end]])
+                    self.net.add_edge(edge.start, edge.end, title=edge.title, physics = False, color='gray',smooth=True, smoothtype='dynamic',
+                                    width=1 + 1.7 ** self.adjacencyMatrix[self.indexToNameDict[edge.start]][self.indexToNameDict[edge.end]])
 
         elif self.type == 'NORMAL':
-            print('here1')
             if self.activity == '' or self.activity == 'ALL':
-                print('here2')
                 for edge in self.edges:
-                    self.net.add_edge(edge.start, edge.end, title=edge.title, color=edge.color, physics=False, smooth=True, smoothtype='dynamic')
+                    self.edge_colors(edge)
             else:
                 for edge in self.edges:
                     if edge.title == self.activity or not self.activity:
-                        self.net.add_edge(edge.start, edge.end, title=edge.title, color=edge.color, physics=True ,smooth=True, smoothtype='dynamic')
+                        self.edge_colors(edge)
 
 
     #Dispays the graph
@@ -309,13 +172,19 @@ class Graph:
         self.net.show('basic.html')
 
 val = ''
+edges = []
+nodes = []
+parser = Parser('Social_Network_Analysis/Social_Network_Edges.csv','Social_Network_Analysis/Social_Network_Nodes.csv')
+
+
 while val.upper() != 'END':
+
     print("please type weighted or normal")
     graph_type = input()
     print("Please type desired activity or leave press enter for all activities")
     activity = input()
 
-    graph = Graph(nodes, edges1, graph_type, activity)
+    graph = Graph(nodes, edges, graph_type, activity)
     graph.show_graph()
     graph.net.edges.clear()
     print("press 'enter' to select more graphs or type 'End' to finish")
